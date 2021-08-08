@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio</title>
+</head>
+<body>
+    <h1>Aquí se verá el ejercicio a resolver.</h1>
+    {#Los símbolos de apertura y cierre {% %} indican código#} 
+    {#Los símbolos de apertura y cierre {{}} indican datos#}
+    <div class="ejercicios">
+        {% for ejercicio in los_ejercicios %}
+            <div class="un-ejercicio">
+                <h2>
+                    <h3>{{ejercicio.titulo}}</h3>
+                    <p>{{ejercicio.tema}}</p>
+                    <p>{{ejercicio.enunciado}}</p>
+                    <p>{{ejercicio.fecha}}</p>
+                </h2>
+            </div>
+
+        {% endfor %}
+    </div>
+</body>
+</html>
