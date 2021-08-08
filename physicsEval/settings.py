@@ -82,8 +82,17 @@ WSGI_APPLICATION = 'physicsEval.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        # 'ENGINE': 'django.db.backends.sqlite3',    # Venía por defecto al crear el proyecto.
+        # 'NAME': BASE_DIR / 'db.sqlite3',           # Venía por defecto al crear el proyecto.
+        'ENGINE': 'django.db.backends.postgresql',
+
+        # Me traje esta variable de settings en Heroku (reveal config vars)
+#postgres://jsfwxbkhyjmxoa:3fe3d1dbf39c1e67ce2d10efdc73c71301d196f366ad298fd62672eacf0da248@ec2-34-204-128-77.compute-1.amazonaws.com:5432/dek6qdlh5nn5k8
+        'NAME' : 'dek6qdlh5nn5k8',
+        'HOST' : 'ec2-34-204-128-77.compute-1.amazonaws.com:',
+        'PORT' : 5432,
+        'USER' : 'jsfwxbkhyjmxoa',
+        'PASSWORD': '3fe3d1dbf39c1e67ce2d10efdc73c71301d196f366ad298fd62672eacf0da248',
     }
 }
 
