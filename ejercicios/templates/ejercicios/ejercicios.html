@@ -10,17 +10,15 @@
     {#Los símbolos de apertura y cierre {% %} indican código#} 
     {#Los símbolos de apertura y cierre {{}} indican datos#}
     <div class="ejercicios">
-        {% for ejercicio in los_ejercicios %}
-            <div class="un-ejercicio">
-                <h2>
-                    <h3>{{ejercicio.titulo}}</h3>
-                    <p>{{ejercicio.tema}}</p>
-                    <p>{{ejercicio.enunciado}}</p>
-                    <p>{{ejercicio.fecha}}</p>
-                </h2>
-            </div>
+        
+        <h3>{{ejercicio.titulo}}</h3>
+        <p>{{ejercicio.tema}}</p>
+        <p>{{ejercicio.enunciado}}</p>
+        <p>{{ejercicio.fecha}}</p>
+        
+    </div>
 
-        {% endfor %}
+        
     </div>
 </body>
 </html>
