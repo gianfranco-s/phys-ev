@@ -25,3 +25,8 @@ urlpatterns = [
     path('',views.inicio),              # Envía al usuario a la función inicio, que se encuentra en views.py
     path('accounts/',include('usuarios.urls')),  # Envía al navegador a buscar todas las posibilidades de urls que haya en usuarios.urls
 ]
+
+
+# Para traer archivos static (CSS, imágenes, etc)
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+urlpatterns += staticfiles_urlpatterns()
