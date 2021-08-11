@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JSON y AJAX</title>
-    <link rel="stylesheet" href="css/estilos.css">
+    
 </head>
 <body>
     
@@ -16,7 +16,44 @@
     Aquí irá la lista con todos los ejercicios, mostrada con javascript:
     <div id = "informac"></div>
 
-    <script src="js/main.js"></script>
+
+
+
+    <!-- ------------------------------ JavaScript ----------------------------- -->
+    <script>
+        var informac = document.getElementById("informac")
+
+        var boton    = document.getElementById("boton");
+        boton.addEventListener("click",pedir)
+
+        //  * * * * * * * * * * * Pedir info a url * * * * * * * * * * *
+        function pedir(){
+        var miPedido = new XMLHttpRequest();
+        miPedido.open('GET','https://boiling-cove-03768.herokuapp.com/ejercicios/listado');
+
+        miPedido.onload = function(){
+            var misDatos = JSON.parse(miPedido.responseText);
+            mostrarHTML(misDatos)
+        };
+
+        miPedido.send();
+        }
+
+        //  * * * * * * * * * * * Mostrar información obtenida en HTML * * * * * * * * * * *
+        function mostrarHTML(datos){
+        var cadenaHTML = "";
+
+        for (i = 0 ; i < datos.length ; i++) {
+            cadenaHTML += "<p>" + datos[i] + ".</p>";  // va a mostrar [object], si no le pido un atributo específico
+        }
+        
+        informac.insertAdjacentHTML('beforeend',cadenaHTML);
+        }
+
+
+    </script>
+    <!-- ---------------------------- Fin JavaScript ---------------------------- -->
+
 </body>
 </html>
 
