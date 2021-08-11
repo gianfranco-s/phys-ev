@@ -17,28 +17,19 @@ def ejercicios(request):
 
 
 def listado(request):
+    '''
+    Muestra un listado JSON en un html
+    '''
     la_lista = list(Ejercicio.objects.values().order_by('tema'))
     
-    print(type(print(JsonResponse(la_lista,safe=False))))
-    print(JsonResponse(la_lista,safe=False))
-    print('--------------------')
-    # return JsonResponse(la_lista,safe=False)
+    
+    return JsonResponse(la_lista,safe=False)
 
-    contexto = {
-        'la_lista' : la_lista
-    }
-    return render(request,'ejercicios/listado.html',contexto)
-
+    
 
 def verListado(request):
-    la_lista = list(Ejercicio.objects.values().order_by('tema'))
+    '''
+    Muestra un html que tiene un script que hace AJAX
+    '''
     
-    print(type(print(JsonResponse(la_lista,safe=False))))
-    print(JsonResponse(la_lista,safe=False))
-    print('--------------------')
-    # return JsonResponse(la_lista,safe=False)
-
-    contexto = {
-        'la_lista' : la_lista
-    }
-    return render(request,'ejercicios/ver-listado.html',contexto)
+    return render(request,'ejercicios/ver-listado.html')

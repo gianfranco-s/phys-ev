@@ -7,4 +7,5 @@ from . import views                     # from . -> importar de este mismo direc
 urlpatterns = [
     path('',views.ejercicios),
     path('ver-listado',views.verListado),  # Dirección para mostrar una lista de todos los ejercicios
+    path('listado',views.listado),  # Dirección para mostrar una lista de todos los ejercicios
 ]

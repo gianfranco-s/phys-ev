@@ -28,8 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True          # Camiado para que quede en Heroku
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['0.0.0.0']
 
@@ -81,32 +80,36 @@ WSGI_APPLICATION = 'physicsEval.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
 
-        # -----------------------------------------------------------------------------------
-        # Para hacer debug localmente, estoy teniendo que descomentar estas dos líneas
-        
-        # 'ENGINE': 'django.db.backends.sqlite3',    # Venía por defecto al crear el proyecto.
-        # 'NAME': BASE_DIR / 'db.sqlite3',           # Venía por defecto al crear el proyecto.
-        # -----------------------------------------------------------------------------------
-        
-        
-        # -----------------------------------------------------------------------------------
-        # Para que ande en Heroku, tengo que descomentar desde ENGINE hasta PASSWORD
-        
-        # Me traje esta variable de settings en Heroku (reveal config vars)
-#postgres://jsfwxbkhyjmxoa:3fe3d1dbf39c1e67ce2d10efdc73c71301d196f366ad298fd62672eacf0da248@ec2-34-204-128-77.compute-1.amazonaws.com:5432/dek6qdlh5nn5k8
-        
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME' : 'dek6qdlh5nn5k8',
-        'HOST' : 'ec2-34-204-128-77.compute-1.amazonaws.com:',
-        'PORT' : 5432,
-        'USER' : 'jsfwxbkhyjmxoa',
-        'PASSWORD': '3fe3d1dbf39c1e67ce2d10efdc73c71301d196f366ad298fd62672eacf0da248',
-        # # -----------------------------------------------------------------------------------
+if DEBUG:
+    DATABASES = {
+        'default': {
+
+            # -----------------------------------------------------------------------------------
+            # Para hacer debug localmente, estoy teniendo que descomentar estas dos líneas
+            'ENGINE': 'django.db.backends.sqlite3',    # Venía por defecto al crear el proyecto.
+            'NAME': BASE_DIR / 'db.sqlite3',           # Venía por defecto al crear el proyecto.
+            # -----------------------------------------------------------------------------------
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            # -----------------------------------------------------------------------------------
+            # Para que ande en Heroku, tengo que descomentar desde ENGINE hasta PASSWORD
+            
+            # Me traje esta variable de settings en Heroku (reveal config vars)
+    #postgres://jsfwxbkhyjmxoa:3fe3d1dbf39c1e67ce2d10efdc73c71301d196f366ad298fd62672eacf0da248@ec2-34-204-128-77.compute-1.amazonaws.com:5432/dek6qdlh5nn5k8
+            
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME' : 'dek6qdlh5nn5k8',
+            'HOST' : 'ec2-34-204-128-77.compute-1.amazonaws.com:',
+            'PORT' : 5432,
+            'USER' : 'jsfwxbkhyjmxoa',
+            'PASSWORD': '3fe3d1dbf39c1e67ce2d10efdc73c71301d196f366ad298fd62672eacf0da248',
+            # # -----------------------------------------------------------------------------------
+        }
+    }
 
 
 # Password validation
