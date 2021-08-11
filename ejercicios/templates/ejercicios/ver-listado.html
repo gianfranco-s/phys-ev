@@ -28,26 +28,27 @@
 
         //  * * * * * * * * * * * Pedir info a url * * * * * * * * * * *
         function pedir(){
-        var miPedido = new XMLHttpRequest();
-        miPedido.open('GET','https://boiling-cove-03768.herokuapp.com/ejercicios/listado');
+            informac.innerHTML=""
+            
+            var miPedido = new XMLHttpRequest();
+            miPedido.open('GET','/ejercicios/listado');
 
-        miPedido.onload = function(){
-            var misDatos = JSON.parse(miPedido.responseText);
-            mostrarHTML(misDatos)
-        };
-
-        miPedido.send();
+            miPedido.onload = function(){
+                var misDatos = JSON.parse(miPedido.responseText);
+                mostrarHTML(misDatos)
+            };
+            
+            miPedido.send();
         }
 
         //  * * * * * * * * * * * Mostrar información obtenida en HTML * * * * * * * * * * *
         function mostrarHTML(datos){
-        var cadenaHTML = "";
+            var cadenaHTML = "";
 
-        for (i = 0 ; i < datos.length ; i++) {
-            cadenaHTML += "<p>" + datos[i] + ".</p>";  // va a mostrar [object], si no le pido un atributo específico
-        }
-        
-        informac.insertAdjacentHTML('beforeend',cadenaHTML);
+            for (i = 0 ; i < datos.length ; i++) {
+                cadenaHTML += "<p>" + datos[i].titulo + ".</p>";  // va a mostrar [object], si no le pido un atributo específico
+            }
+            informac.insertAdjacentHTML('beforeend',cadenaHTML);
         }
 
 

@@ -28,9 +28,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['0.0.0.0']
+ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -107,7 +107,7 @@ else:
             'PORT' : 5432,
             'USER' : 'jsfwxbkhyjmxoa',
             'PASSWORD': '3fe3d1dbf39c1e67ce2d10efdc73c71301d196f366ad298fd62672eacf0da248',
-            # # -----------------------------------------------------------------------------------
+            # -----------------------------------------------------------------------------------
         }
     }
 
