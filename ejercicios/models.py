@@ -8,7 +8,7 @@ class Ejercicio(models.Model):
     slug = models.SlugField()                  # Es una URL para el ejercicio
     enunciado = models.TextField()
     fecha = models.DateTimeField(auto_now_add=True)
-    # Agregar autor
+    
 
     def __str__(self):
         return self.titulo      # Representación en string

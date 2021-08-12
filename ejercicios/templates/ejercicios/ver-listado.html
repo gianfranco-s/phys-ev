@@ -1,56 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JSON y AJAX</title>
-    
-</head>
-<body>
-    
-    <header>
-        <h1> Lista de ejercicios, con JSON y AJAX</h1>
-        <button id="boton"> Buscar info </button>
-    </header>
-
-    Aquí irá la lista con todos los ejercicios, mostrada con javascript:
-    <div id = "informac"></div>
-
-
-
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <title>Axios Crash Course</title>
+  </head>
+  <body>
+    <div class="container my-5">
+      <div class="text-center">
+        <h1 class="display-4 text-center mb-3">Axios Crash Course</h1>
+        <button class="btn btn-primary my-3" id="get">GET</button>
+        <button class="btn btn-info" id="post">POST</button>
+        <button class="btn btn-warning" id="update">PUT/PATCH</button>
+        <button class="btn btn-danger" id="delete">DELETE</button>
+      </div>
+      <hr />
+      <div id="respuesta"></div>
+    </div>
 
     <!-- ------------------------------ JavaScript ----------------------------- -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
     <script>
-        var informac = document.getElementById("informac")
-
-        var boton    = document.getElementById("boton");
-        boton.addEventListener("click",pedir)
-
-        //  * * * * * * * * * * * Pedir info a url * * * * * * * * * * *
-        function pedir(){
-            informac.innerHTML=""
-            
-            var miPedido = new XMLHttpRequest();
-            miPedido.open('GET','/ejercicios/listado');
-
-            miPedido.onload = function(){
-                var misDatos = JSON.parse(miPedido.responseText);
-                mostrarHTML(misDatos)
-            };
-            
-            miPedido.send();
+        // GET REQUEST
+        function getTodos() {
+            axios
+                .get('http://0.0.0.0:5000/ejercicios/listado')
+                .then(res => showOutput(res))
+                .catch(err => console.error(err))
         }
 
-        //  * * * * * * * * * * * Mostrar información obtenida en HTML * * * * * * * * * * *
-        function mostrarHTML(datos){
-            var cadenaHTML = "";
+        // POST REQUEST
+        function addTodo() {
+            
+            axios
+                .post('http://0.0.0.0:5000/ejercicios/listado',{
+                    titulo: "tituloPOST",
+                    tema: "POST",
+                    slug: "temaPOST",
+                    enunciado: "po po po possst",
+                })
+                .then(res => showOutput(res))
+                .catch(err => console.error(err))
 
-            for (i = 0 ; i < datos.length ; i++) {
-                cadenaHTML += "<p>" + datos[i].titulo + ".</p>";  // va a mostrar [object], si no le pido un atributo específico
-            }
-            informac.insertAdjacentHTML('beforeend',cadenaHTML);
         }
 
+        // PUT/PATCH REQUEST
+        function updateTodo() {
+            axios
+                .patch('',{
+                    title: 'Updated Todo',
+                    completed: true
+                })
+                .then(res => showOutput(res))
+                .catch(err => console.error(err))
+        }
+
+        // DELETE REQUEST
+        function removeTodo() {
+            axios
+            .patch('')
+            .then(res => showOutput(res))
+            .catch(err => console.error(err))
+            
+        }
+
+
+        // AXIOS INSTANCES
+
+        // Show output in browser
+        function showOutput(res) {
+        document.getElementById('respuesta').innerHTML = `
+
+        <div class="card mt-3">
+            <div class="card-header">
+            Data
+            </div>
+            <div class="card-body">
+            <pre>${JSON.stringify(res.data, null, 2)}</pre>
+            </div>
+        </div>
+
+        `;
+        }
+
+        // Event listeners
+        document.getElementById('get').addEventListener('click', getTodos);
+        document.getElementById('post').addEventListener('click', addTodo);
+        document.getElementById('update').addEventListener('click', updateTodo);
+        document.getElementById('delete').addEventListener('click', removeTodo);
 
     </script>
     <!-- ---------------------------- Fin JavaScript ---------------------------- -->
