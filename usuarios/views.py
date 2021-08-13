@@ -1,7 +1,8 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth import login,logout
 
-def signup(request):
+def signup_view(request):
     '''
     Método POST: crear un usuario con los datos del formulario.
         Si son válidos los datos, salvar al usuario
@@ -11,9 +12,14 @@ def signup(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)           # Trae los datos del formulario, crea el objeto
         if form.is_valid():                             # Valida al objeto
-            form.save()                                 # Guarda los datos, si son válidos
+            # form.save()                                 # Guarda los datos, si son válidos
+            
             # loguear al usuario
-            return redirect('/ejercicios')
+            user = form.save()
+            login(request,user)
+
+            # return redirect('/ejercicios')
+            return redirect('ejercicios:ejerAleat') 
     else:                                               # Si se trata de un método GET
         form = UserCreationForm()    
     
@@ -23,12 +29,16 @@ def signup(request):
     return render(request,'usuarios/signup.html',contexto)
 
 from django.contrib.auth.forms import UserCreationForm
-def login(request):
+def login_view(request):
     if request.method == 'POST':
         form = AuthenticationForm(data=request.POST)    # AuthenticationForm toma otros parámetros, por eso "fuerzo" a enviarle únicamente data
         if form.is_valid():
             # loguear al usuario
-            return redirect('/ejercicios')
+            user = form.get_user()
+            login(request,user)
+
+            # return redirect('/ejercicios')
+            return redirect('ejercicios:ejerAleat') 
 
     else:                                               # Si se trata de un método GET
         form = AuthenticationForm()  
@@ -37,3 +47,9 @@ def login(request):
         'form':form,
     }
     return render(request,'usuarios/login.html',contexto)
+
+def logout_view(request):
+    if request.method == 'POST':
+        logout(request)
+        # return redirect('ejercicios:ejerAleat')
+        return redirect('paginaInicio')

@@ -5,6 +5,7 @@ from .models import Ejercicio           # Importo el objeto "Ejercicio"
 from .serializers import serializarEjercicio
 from rest_framework import viewsets
 import random
+from django.contrib.auth.decorators import login_required
 
 def ejercicios(request):
     cantEjer = len(Ejercicio.objects.all())
@@ -28,3 +29,18 @@ def verListado(request):
 class mostrarListado(viewsets.ModelViewSet):
     queryset = Ejercicio.objects.all().order_by('tema')
     serializer_class = serializarEjercicio
+
+
+
+# def listado(request):
+#     '''
+#     Muestra un listado JSON en un html
+#     '''
+#     la_lista = list(Ejercicio.objects.values().order_by('tema'))
+    
+#     return JsonResponse(la_lista,safe=False)
+
+# from django.contrib.auth.decorators import login_required
+# @login_required(redirect_field_name='',login_url='/accounts/login')
+def redactarEjer(request):
+    return render(request,'ejercicios/redactarEjercicios.html')

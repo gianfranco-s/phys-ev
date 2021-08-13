@@ -29,9 +29,10 @@ SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # https://boiling-cove-03768.herokuapp.com/
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', 'localhost']
+
 
 
 # Application definition
@@ -46,9 +47,11 @@ INSTALLED_APPS = [
     'ejercicios',
     'usuarios',
     'rest_framework',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -150,8 +153,17 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+STATIC_FILES_DIRS = [
+    os.path.join(BASE_DIR, 'recursos')
+]
+
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATIC_FILES_DIRS = [
+#     os.path.join(BASE_DIR, '/recursos'),
+# ]   # Tengo que crear una carpeta llamada "recursos"
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -161,3 +173,18 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Configure Django App for Heroku.
 import django_on_heroku
 django_on_heroku.settings(locals())
+
+
+# CORS
+if DEBUG:
+    CORS_ALLOW_ALL_ORIGINS = True
+else:
+    CORS_ALLOW_ALL_ORIGINS = False
+    CORS_ALLOWED_ORIGINS = [
+    "https://boiling-cove-03768.herokuapp.com/",
+    "http://127.0.0.1:8000",
+    "http://0.0.0.0:5000"
+    ]
+
+
+CORS_ALLOW_ALL_ORIGINS = True

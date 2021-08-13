@@ -1,16 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    
-    <title>Axios Crash Course</title>
-  </head>
-  <body>
+{% extends "base_layout.html" %}
+
+
+{% block contenido %}
+
     <div class="container my-5">
       <div class="text-center">
-        <h1 class="display-4 text-center mb-3">Axios Crash Course</h1>
+        <h1 class="display-4 text-center mb-3">Pruebas con métodos HTML</h1>
         <button class="btn btn-primary my-3" id="get">GET</button>
         <button class="btn btn-info" id="post">POST</button>
         <button class="btn btn-warning" id="update">PUT/PATCH</button>
@@ -26,7 +21,8 @@
         // GET REQUEST
         function getTodos() {
             axios
-                .get('http://0.0.0.0:5000/ejercicios/listado')
+                .get('http://0.0.0.0:5000/ejercicios/mostrarListadoejercicios')
+                // .get('http://127.0.0.1:8000/ejercicios/mostrarListadoejercicios')
                 .then(res => showOutput(res))
                 .catch(err => console.error(err))
         }
@@ -35,7 +31,8 @@
         function addTodo() {
             
             axios
-                .post('http://0.0.0.0:5000/ejercicios/listado',{
+                // .post('http://127.0.0.1:8000/ejercicios/mostrarListadoejercicios',{
+                .post('http://0.0.0.0:5000/ejercicios/mostrarListadoejercicios/',{
                     titulo: "tituloPOST",
                     tema: "POST",
                     slug: "temaPOST",
@@ -94,6 +91,4 @@
     </script>
     <!-- ---------------------------- Fin JavaScript ---------------------------- -->
 
-</body>
-</html>
-
+{% endblock %}

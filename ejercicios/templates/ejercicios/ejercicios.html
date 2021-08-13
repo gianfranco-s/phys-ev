@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ejercicio</title>
-</head>
-<body>
+{% extends "base_layout.html" %}
+
+
+{% block contenido %}
     <h1>Aquí se verá el ejercicio a resolver.</h1>
     {#Los símbolos de apertura y cierre {% %} indican código#} 
     {#Los símbolos de apertura y cierre {{}} indican datos#}
@@ -20,5 +16,4 @@
 
         
     </div>
-</body>
-</html>
+{% endblock %}
