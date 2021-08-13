@@ -186,5 +186,12 @@ else:
     "http://0.0.0.0:5000"
     ]
 
-
+CORS_ALLOW_METHODS = [
+'DELETE',
+'GET',
+'OPTIONS',
+'PATCH',
+'POST',
+'PUT',
+]
 CORS_ALLOW_ALL_ORIGINS = True
