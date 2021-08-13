@@ -1,11 +1,18 @@
-from django.http.response import JsonResponse
-from django.shortcuts import render
-from dotenv.main import rewrite
-from .models import Ejercicio           # Importo el objeto "Ejercicio"
-from .serializers import serializarEjercicio
+from django.http.response import Http404
+from rest_framework.views import APIView
+from rest_framework.response import Response
 from rest_framework import viewsets
-import random
+
+from django.shortcuts import render
+
+from .models import Ejercicio
+
+from .serializers import serializarEjercicio
+
 from django.contrib.auth.decorators import login_required
+import random
+
+
 
 def ejercicios(request):
     cantEjer = len(Ejercicio.objects.all())
@@ -19,6 +26,68 @@ def ejercicios(request):
     return render(request,'ejercicios/ejercicios.html',contexto)
 
 
+class listado_view(APIView):
+    
+    # READ a single Todo
+    def get_object(self, pk):
+        try:
+            return Ejercicio.objects.get(pk=pk)
+        except Ejercicio.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk=None, format=None):
+        if pk:
+            data = self.get_object(pk)
+        else:
+            data = Ejercicio.objects.all()
+            
+        serializer = serializarEjercicio(data, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        data = request.data
+        serializer = serializarEjercicio(data=data)
+
+        serializer.is_valid(raise_exception=True)
+
+        serializer.save()
+
+        response = Response()
+
+        response.data = {
+            'message': 'Ejercicio creado normalmente',
+            'data': serializer.data
+        }
+
+        return response
+
+    def put(self, request, pk=None, format=None):
+        actualizar_ejercicio = Ejercicio.objects.get(pk=pk)
+        serializer = serializarEjercicio(instance=actualizar_ejercicio,data=request.data, partial=True)
+
+        serializer.is_valid(raise_exception=True)
+
+        serializer.save()
+
+        response = Response()
+
+        response.data = {
+            'message': 'Ejecicio actualizado normalmente',
+            'data': serializer.data
+        }
+
+        return response
+
+    def delete(self, request, pk, format=None):
+        borrar_ejercicio =  Ejercicio.objects.get(pk=pk)
+
+        borrar_ejercicio.delete()
+
+        return Response({
+            'message': 'Ejercicio borrado'
+        })
+
+
 def verListado(request):
     '''
     Muestra un html que tiene un script que hace AJAX
@@ -26,21 +95,3 @@ def verListado(request):
     
     return render(request,'ejercicios/ver-listado.html')
 
-class mostrarListado(viewsets.ModelViewSet):
-    queryset = Ejercicio.objects.all().order_by('tema')
-    serializer_class = serializarEjercicio
-
-
-
-# def listado(request):
-#     '''
-#     Muestra un listado JSON en un html
-#     '''
-#     la_lista = list(Ejercicio.objects.values().order_by('tema'))
-    
-#     return JsonResponse(la_lista,safe=False)
-
-# from django.contrib.auth.decorators import login_required
-# @login_required(redirect_field_name='',login_url='/accounts/login')
-def redactarEjer(request):
-    return render(request,'ejercicios/redactarEjercicios.html')

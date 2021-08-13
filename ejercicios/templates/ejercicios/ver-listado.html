@@ -18,13 +18,14 @@
     <!-- ------------------------------ JavaScript ----------------------------- -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
     <script>
-
-        // var sitio = 'http://0.0.0.0:5000/ejercicios/mostrarListadoejercicios'
-        // var sitio = 'http://127.0.0.1:8000/ejercicios/mostrarListadoejercicios'
-        var sitio = 'https://boiling-cove-03768.herokuapp.com/ejercicios/mostrarListadoejercicios'
+        
+                
+        var sitio = 'http://0.0.0.0:5000/ejercicios/mostrarListado'
+        // var sitio = 'http://127.0.0.1:8000/ejercicios/mostrarListado'
+        // var sitio = 'https://boiling-cove-03768.herokuapp.com/ejercicios/mostrarListadoejercicios'
         
         // GET REQUEST
-        function getTodos() {
+        function getEjers() {
             axios
                 .get(sitio)
                 .then(res => showOutput(res))
@@ -32,37 +33,36 @@
         }
 
         // POST REQUEST
-        function addTodo() {
-            
+        function addEjer() {
             axios
                 .post(sitio,{
-                    titulo: "tituloPOST",
-                    tema: "POST",
-                    slug: "temaPOST",
-                    enunciado: "po po po possst",
+                    'titulo': "tituloPOST",
+                    'tema': "POST",
+                    'enunciado': "po po po possst",
                 })
                 .then(res => showOutput(res))
                 // .catch(err => console.error(err))
-
-        }
+           
+            }
 
         // PUT/PATCH REQUEST
-        function updateTodo() {
+        function updateEjer() {
             axios
-                .patch('',{
-                    title: 'Updated Todo',
-                    completed: true
+                .patch(sitio,{
+                    id: '16',
+                    titulo: 'nuevo patch',
+                    enunciado: 'nuevo enunciado'
                 })
                 .then(res => showOutput(res))
-                .catch(err => console.error(err))
+                // .catch(err => console.error(err))
         }
 
         // DELETE REQUEST
-        function removeTodo() {
+        function removeEjer() {
             axios
-            .patch('')
-            .then(res => showOutput(res))
-            .catch(err => console.error(err))
+                .delete(sitio)
+                .then(res => showOutput(res))
+                // .catch(err => console.error(err))
             
         }
 
@@ -86,10 +86,10 @@
         }
 
         // Event listeners
-        document.getElementById('get').addEventListener('click', getTodos);
-        document.getElementById('post').addEventListener('click', addTodo);
-        document.getElementById('update').addEventListener('click', updateTodo);
-        document.getElementById('delete').addEventListener('click', removeTodo);
+        document.getElementById('get').addEventListener('click', getEjers);
+        document.getElementById('post').addEventListener('click', addEjer);
+        document.getElementById('update').addEventListener('click', updateEjer);
+        document.getElementById('delete').addEventListener('click', removeEjer);
 
     </script>
     <!-- ---------------------------- Fin JavaScript ---------------------------- -->
