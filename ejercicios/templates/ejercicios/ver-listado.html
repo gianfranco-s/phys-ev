@@ -18,11 +18,15 @@
     <!-- ------------------------------ JavaScript ----------------------------- -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
     <script>
+
+        // var sitio = 'http://0.0.0.0:5000/ejercicios/mostrarListadoejercicios'
+        // var sitio = 'http://127.0.0.1:8000/ejercicios/mostrarListadoejercicios'
+        var sitio = 'https://boiling-cove-03768.herokuapp.com/ejercicios/mostrarListadoejercicios'
+        
         // GET REQUEST
         function getTodos() {
             axios
-                .get('http://0.0.0.0:5000/ejercicios/mostrarListadoejercicios')
-                // .get('http://127.0.0.1:8000/ejercicios/mostrarListadoejercicios')
+                .get(sitio)
                 .then(res => showOutput(res))
                 .catch(err => console.error(err))
         }
@@ -31,8 +35,7 @@
         function addTodo() {
             
             axios
-                // .post('http://127.0.0.1:8000/ejercicios/mostrarListadoejercicios',{
-                .post('http://0.0.0.0:5000/ejercicios/mostrarListadoejercicios/',{
+                .post(sitio,{
                     titulo: "tituloPOST",
                     tema: "POST",
                     slug: "temaPOST",
