@@ -3,95 +3,292 @@
 
 {% block contenido %}
 
-    <div class="container my-5">
-      <div class="text-center">
-        <h1 class="display-4 text-center mb-3">Pruebas con métodos HTML</h1>
+<div class="container my-5">
+    <div class="text-center">
+        <h1 class="display-4 text-center mb-3">Alta, baja y modificación de ejercicios</h1>
         <button class="btn btn-primary my-3" id="get">GET</button>
         <button class="btn btn-info" id="post">POST</button>
-        <button class="btn btn-warning" id="update">PUT/PATCH</button>
+        <button class="btn btn-warning" id="update">PUT</button>
         <button class="btn btn-danger" id="delete">DELETE</button>
-      </div>
-      <hr />
-      <div id="respuesta"></div>
     </div>
+    <div id="respuesta"></div>
+</div>
 
-    <!-- ------------------------------ JavaScript ----------------------------- -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
-    <script>
-        
-                
-        var sitio = 'http://0.0.0.0:5000/ejercicios/mostrarListado'
-        // var sitio = 'http://127.0.0.1:8000/ejercicios/mostrarListado'
-        // var sitio = 'https://boiling-cove-03768.herokuapp.com/ejercicios/mostrarListadoejercicios'
-        
-        // GET REQUEST
-        function getEjers() {
-            axios
-                .get(sitio)
-                .then(res => showOutput(res))
-                // .catch(err => console.error(err))
-        }
+<!-- ------------------------------ JavaScript ----------------------------- -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
 
-        // POST REQUEST
-        function addEjer() {
-            axios
-                .post(sitio,{
-                    'titulo': "tituloPOST",
-                    'tema': "POST",
-                    'enunciado': "po po po possst",
-                })
-                .then(res => showOutput(res))
-                // .catch(err => console.error(err))
-           
-            }
-
-        // PUT/PATCH REQUEST
-        function updateEjer() {
-            axios
-                .patch(sitio,{
-                    id: '16',
-                    titulo: 'nuevo patch',
-                    enunciado: 'nuevo enunciado'
-                })
-                .then(res => showOutput(res))
-                // .catch(err => console.error(err))
-        }
-
-        // DELETE REQUEST
-        function removeEjer() {
-            axios
-                .delete(sitio)
-                .then(res => showOutput(res))
-                // .catch(err => console.error(err))
-            
-        }
+<!-- ---------------------------- Fin JavaScript ---------------------------- -->
 
 
-        // AXIOS INSTANCES
+<!-- <script src="main.js"></script> -->
+<script>
+      
+// var sitio = 'http://0.0.0.0:5000/ejercicios/mostrarListado'
+// var sitio = 'http://127.0.0.1:8000/ejercicios/mostrarListado'
+var sitio = 'https://boiling-cove-03768.herokuapp.com/ejercicios/mostrarListado'
 
-        // Show output in browser
-        function showOutput(res) {
-        document.getElementById('respuesta').innerHTML = `
 
-        <div class="card mt-3">
-            <div class="card-header">
-            Data
-            </div>
-            <div class="card-body">
-            <pre>${JSON.stringify(res.data, null, 2)}</pre>
-            </div>
-        </div>
+function getEjers() {
+axios
+.get(sitio)
+.then(res => showOutput(res))
+// .catch(err => console.error(err))
+}
 
-        `;
-        }
 
-        // Event listeners
-        document.getElementById('get').addEventListener('click', getEjers);
-        document.getElementById('post').addEventListener('click', addEjer);
-        document.getElementById('update').addEventListener('click', updateEjer);
-        document.getElementById('delete').addEventListener('click', removeEjer);
+function addEjer() {
+document.getElementById('respuesta').innerHTML="";
+var resp = document.getElementById('respuesta');
+var div_cardmt3 = document.createElement('div');
+div_cardmt3.setAttribute('class','card mt-3');
+resp.appendChild(div_cardmt3)
 
-    </script>
+var div_cardheader = document.createElement('div');
+div_cardheader.setAttribute('class','card-header');
+div_cardheader.innerHTML="Nuevo ejercicio";
+resp.appendChild(div_cardheader)
+
+var div_cardbody = document.createElement('div');
+div_cardbody.setAttribute('class','card-body');
+resp.appendChild(div_cardbody)
+
+crearFormulario("POST");
+}
+
+function crearFormulario(metodo){
+var br = document.createElement('br');  // Crea un elemento de salto de línea
+
+
+// ----------- Creación del elemento formulario -----------
+// <form id="myForm">  ... </form>
+var formulario = document.createElement('form');
+formulario.setAttribute('id','myForm');
+
+// ----------- Creación de un nuevo input -----------------
+// <input type="text" name="idExistente" placeholder="ID de un ejercicio existente">
+var inputID = document.createElement('input');
+inputID.setAttribute('type','text');
+inputID.setAttribute('id','idExistente');
+inputID.setAttribute('placeholder','ID de un ejercicio existente');
+
+// ----------- Creación de un nuevo input -----------------
+// <input type="text" name="nuevoTitulo" placeholder="Título">
+var inputTitulo = document.createElement('input');
+inputTitulo.setAttribute('type','text');
+inputTitulo.setAttribute('id','nuevoTitulo');
+inputTitulo.setAttribute('placeholder','Título');
+
+// ----------- Creación de un nuevo input -----------------
+// <input type="text" name="nuevoTema" placeholder="Tema">
+var inputTema = document.createElement('input');
+inputTema.setAttribute('type','text');
+inputTema.setAttribute('id','nuevoTema');
+inputTema.setAttribute('placeholder','Tema');
+
+// ----------- Creación de textarea -----------------
+// <textarea name="nuevoEnunc" placeholder="Enunciado" rows="20" cols="50"></textarea>
+var inputEnunc = document.createElement('textarea');
+inputEnunc.setAttribute('rows','20');
+inputEnunc.setAttribute('cols','50');
+inputEnunc.setAttribute('id','nuevoEnunc');
+inputEnunc.setAttribute('placeholder','Enunciado');
+
+// ----------- Creación de enviar -----------------
+// <input type="submit" id="enviar" value="Enviar">
+var inputEnviar = document.createElement('input');
+inputEnviar.setAttribute('type','submit');
+inputEnviar.setAttribute('id','btn-enviar');
+inputEnviar.setAttribute('value','Enviar');
+
+// Apunto a esto:
+//     <div class="card mt-3">
+//         <div class="card-header">
+//         Nuevo ejercicio
+//         </div>
+//         <div class="card-body">
+//             <form class="form">
+//                 <input type="text" id="newTitulo" placeholder="Título"><br>
+//                 <input type="text" id="newTema" placeholder="Tema"><br>
+//                 <textarea id="newEnunc" rows="20" cols="50" placeholder="Enunciado"></textarea><br>
+//                 <input type="submit" id="enviar" value="Enviar"><br>
+//             </form>
+//         </div>
+//     </div>
+//     `;
+
+if (metodo === "POST"){
+// -------------------------------------------------------                
+// ---------- Creación del formulario completo -----------
+
+formulario.appendChild(inputTitulo)
+formulario.appendChild(br.cloneNode())
+formulario.appendChild(inputTema)
+formulario.appendChild(br.cloneNode())
+formulario.appendChild(inputEnunc)
+formulario.appendChild(br.cloneNode())
+formulario.appendChild(inputEnviar)
+document.getElementById('respuesta').appendChild(formulario);
+
+document.getElementById('btn-enviar').addEventListener('click', function(){
+// let titulo = document.querySelector('input#nuevoTitulo').value;
+// let tema = document.querySelector('input#nuevoTema').value;
+// let enunciado = document.querySelector('textarea#nuevoEnunc').value;
+var titulo = document.getElementById("nuevoTitulo").value;
+var tema = document.getElementById("nuevoTema").value;
+var enunciado = document.getElementById("nuevoEnunc").value;
+enviar(titulo,tema,enunciado)
+})
+} else if (metodo === "PUT") {
+formulario.appendChild(inputID)
+formulario.appendChild(br.cloneNode())
+formulario.appendChild(inputTitulo)
+formulario.appendChild(br.cloneNode())
+formulario.appendChild(inputTema)
+formulario.appendChild(br.cloneNode())
+formulario.appendChild(inputEnunc)
+formulario.appendChild(br.cloneNode())
+formulario.appendChild(inputEnviar)
+document.getElementById('respuesta').appendChild(formulario);
+
+document.getElementById('btn-enviar').addEventListener('click', function(){
+var ID = document.getElementById("idExistente").value;
+var titulo = document.getElementById("nuevoTitulo").value;
+var tema = document.getElementById("nuevoTema").value;
+var enunciado = document.getElementById("nuevoEnunc").value;
+modificar(ID,titulo,tema,enunciado)
+})
+}
+}
+
+function enviar(nuevoTitulo,nuevoTema,nuevoEnunc){
+var nuevoEjercicio = {
+titulo:nuevoTitulo,
+tema: nuevoTema,
+enunciado: nuevoEnunc
+}
+axios
+.post(sitio,nuevoEjercicio)
+.then(res => showOutput(res))
+// .catch(err => console.error(err))
+}
+
+function modificar(ID,modifTitulo,modifTema,modifEnunc){
+var modifEjercicio = {
+titulo:modifTitulo,
+tema: modifTema,
+enunciado: modifEnunc
+}
+axios
+.put(sitio+'/'+ID,modifEjercicio)
+.then(res => showOutput(res))
+// .catch(err => console.error(err))
+}
+
+// PUT/PATCH REQUEST
+function updateEjer() {
+document.getElementById('respuesta').innerHTML="";
+var resp = document.getElementById('respuesta');
+var div_cardmt3 = document.createElement('div');
+div_cardmt3.setAttribute('class','card mt-3');
+resp.appendChild(div_cardmt3)
+
+var div_cardheader = document.createElement('div');
+div_cardheader.setAttribute('class','card-header');
+div_cardheader.innerHTML="Nuevo ejercicio";
+resp.appendChild(div_cardheader)
+
+var div_cardbody = document.createElement('div');
+div_cardbody.setAttribute('class','card-body');
+resp.appendChild(div_cardbody)
+
+crearFormulario("PUT");
+}
+
+// DELETE REQUEST
+function removeEjer() {
+document.getElementById('respuesta').innerHTML="";
+
+var resp = document.getElementById('respuesta');
+
+var div_cardmt3 = document.createElement('div');
+div_cardmt3.setAttribute('class','card mt-3');
+resp.appendChild(div_cardmt3)
+
+var div_cardheader = document.createElement('div');
+div_cardheader.setAttribute('class','card-header');
+div_cardheader.innerHTML="¿Qué número de ejercicio desea borrar?";
+resp.appendChild(div_cardheader)
+
+var div_cardbody = document.createElement('div');
+div_cardbody.setAttribute('class','card-body');
+resp.appendChild(div_cardbody);
+
+var input_Borrar = document.createElement('input');
+input_Borrar.setAttribute('type','text');
+input_Borrar.setAttribute('id','input_Borrar');
+
+var input_Enviar = document.createElement('input');
+input_Enviar.setAttribute('type','submit');
+input_Enviar.setAttribute('value','Enviar');
+input_Enviar.setAttribute('id','btn-enviar');
+
+resp.appendChild(input_Borrar)
+resp.appendChild(input_Enviar)
+
+
+document.getElementById('btn-enviar').addEventListener('click', function(){
+var aBorrar = document.getElementById("input_Borrar").value;
+aBorrar = parseInt(aBorrar);
+console.log(aBorrar);
+
+axios
+.delete(sitio+'/'+aBorrar)
+.then(res => showOutput(res))
+// .catch(err => console.error(err))    
+}) 
+
+}
+
+
+// AXIOS INSTANCES
+
+// Show output in browser
+function showOutput(res) {
+document.getElementById('respuesta').innerHTML = `
+
+<div class="card mt-3">
+<div class="card-header">
+Data
+</div>
+<div class="card-body">
+<pre>${JSON.stringify(res.data, null, 2)}</pre>
+</div>
+</div>
+
+`;
+}
+
+
+// ----------------------- Cuerpo principal -------------------
+// Event listeners
+document.getElementById('get').addEventListener('click', getEjers);
+document.getElementById('post').addEventListener('click', addEjer);
+document.getElementById('update').addEventListener('click', updateEjer);
+document.getElementById('delete').addEventListener('click', removeEjer);
+
+
+
+
+// function esperar(milliseconds){
+//     var start = new Date().getTime();
+//     var end=0;
+//     while( (end-start) < milliseconds){
+//         end = new Date().getTime();
+//     }
+// }
+
+</script>
+
     <!-- ---------------------------- Fin JavaScript ---------------------------- -->
 
 {% endblock %}

@@ -17,23 +17,23 @@ SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # https://boiling-cove-03768.herokuapp.com/
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', 'localhost']
 
 # CORS
-# if DEBUG:
-#     CORS_ALLOW_ALL_ORIGINS = True
-#     CORS_ORIGIN_ALLOW_ALL = True
-# else:
-#     CORS_ALLOW_ALL_ORIGINS = False
-#     CORS_ORIGIN_ALLOW_ALL = False
-#     CORS_ALLOWED_ORIGINS = [
-#     "https://boiling-cove-03768.herokuapp.com/",
-#     "http://127.0.0.1:8000",
-#     "http://0.0.0.0:5000"
-#     ]
-
+if DEBUG:
+    CORS_ALLOW_ALL_ORIGINS = True
+    CORS_ORIGIN_ALLOW_ALL = True
+else:
+    CORS_ALLOW_ALL_ORIGINS = False
+    CORS_ORIGIN_ALLOW_ALL = False
+    CORS_ALLOWED_ORIGINS = [
+    "https://boiling-cove-03768.herokuapp.com/",
+    "http://127.0.0.1:8000",
+    "http://0.0.0.0:5000",
+    "http://0.0.0.0:5000/ejercicios/ver-listado"
+    ]
 
 
 # Application definition
