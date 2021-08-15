@@ -19,7 +19,10 @@ SECRET_KEY = str(os.getenv('SECRET_KEY'))
 # https://boiling-cove-03768.herokuapp.com/
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['0.0.0.0',
+    '127.0.0.1',
+    'localhost',
+    'https://boiling-cove-03768.herokuapp.com/',]
 
 # CORS
 if DEBUG:
@@ -30,6 +33,7 @@ else:
     CORS_ORIGIN_ALLOW_ALL = False
     CORS_ALLOWED_ORIGINS = [
     "https://boiling-cove-03768.herokuapp.com/",
+    "https://boiling-cove-03768.herokuapp.com/ejercicios/ver-listado",
     "http://127.0.0.1:8000",
     "http://0.0.0.0:5000",
     "http://0.0.0.0:5000/ejercicios/ver-listado"
