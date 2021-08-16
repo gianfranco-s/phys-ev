@@ -2,6 +2,7 @@ from django.http.response import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import viewsets
+from rest_framework.decorators import action
 
 from django.shortcuts import render
 
@@ -27,7 +28,7 @@ def ejercicios(request):
 
 
 class listado_view(APIView):
-    http_method_names = ['GET', 'POST' 'PUT', 'DELETE']
+    
     
     def get_object(self, pk):
         try:
@@ -60,7 +61,8 @@ class listado_view(APIView):
         }
 
         return response
-
+    
+    @action(methods=['put'], detail=True)
     def put(self, request, pk=None, format=None):
         actualizar_ejercicio = Ejercicio.objects.get(pk=pk)
         serializer = serializarEjercicio(instance=actualizar_ejercicio,data=request.data, partial=True)
@@ -78,6 +80,7 @@ class listado_view(APIView):
 
         return response
 
+    @action(methods=['delete'], detail=True)
     def delete(self, request, pk, format=None):
         borrar_ejercicio =  Ejercicio.objects.get(pk=pk)
 
