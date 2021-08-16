@@ -62,6 +62,7 @@ class listado_view(APIView):
 
         return response
     
+    # @action(methods=['put'], detail=True)
     def put(self, request, pk=None, format=None):
         actualizar_ejercicio = Ejercicio.objects.get(pk=pk)
         serializer = serializarEjercicio(instance=actualizar_ejercicio,data=request.data, partial=True)
@@ -79,7 +80,7 @@ class listado_view(APIView):
 
         return response
 
-
+    # @action(methods=['delete'], detail=True)
     def delete(self, request, pk, format=None):
         borrar_ejercicio =  Ejercicio.objects.get(pk=pk)
 
