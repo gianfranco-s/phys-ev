@@ -11,6 +11,7 @@ from .models import Ejercicio
 from .serializers import serializarEjercicio
 
 from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 import random
 
 
@@ -26,7 +27,7 @@ def ejercicios(request):
     
     return render(request,'ejercicios/ejercicios.html',contexto)
 
-
+# Prueba 20210816 13:25
 class listado_view(APIView):
     
     
@@ -62,7 +63,6 @@ class listado_view(APIView):
 
         return response
     
-    # @action(methods=['put'], detail=True)
     def put(self, request, pk=None, format=None):
         actualizar_ejercicio = Ejercicio.objects.get(pk=pk)
         serializer = serializarEjercicio(instance=actualizar_ejercicio,data=request.data, partial=True)
@@ -80,7 +80,7 @@ class listado_view(APIView):
 
         return response
 
-    # @action(methods=['delete'], detail=True)
+    @method_decorator(login_required)
     def delete(self, request, pk, format=None):
         borrar_ejercicio =  Ejercicio.objects.get(pk=pk)
 
