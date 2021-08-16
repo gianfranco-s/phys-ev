@@ -32,12 +32,15 @@ else:
     CORS_ALLOW_ALL_ORIGINS = False
     CORS_ORIGIN_ALLOW_ALL = False
     CORS_ALLOWED_ORIGINS = [
-    "https://boiling-cove-03768.herokuapp.com/",
-    "https://boiling-cove-03768.herokuapp.com/ejercicios/ver-listado",
-    "http://127.0.0.1:8000",
-    "http://0.0.0.0:5000",
-    "http://0.0.0.0:5000/ejercicios/ver-listado"
+        "https://boiling-cove-03768.herokuapp.com/",
+        # "https://boiling-cove-03768.herokuapp.com/ejercicios/ver-listado",
+        "http://127.0.0.1:8000",
+        "http://0.0.0.0:5000",
+        # "http://0.0.0.0:5000/ejercicios/ver-listado"
     ]
+    CORS_ORIGIN_WHITELIST = (
+        'http://localhost:8081',
+    )
 
 
 # Application definition
