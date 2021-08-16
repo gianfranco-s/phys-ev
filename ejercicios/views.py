@@ -55,8 +55,8 @@ class listado_view(APIView):
         response = Response()
 
         response.data = {
-            'message': 'Ejercicio creado normalmente',
-            'data': serializer.data
+            'message': 'Ejercicio creado',
+            # 'data': serializer.data
         }
 
         return response
@@ -72,8 +72,8 @@ class listado_view(APIView):
         response = Response()
 
         response.data = {
-            'message': 'Ejecicio actualizado normalmente',
-            'data': serializer.data
+            'message': 'Ejecicio actualizado',
+            # 'data': serializer.data
         }
 
         return response

@@ -11,281 +11,243 @@
         <button class="btn btn-warning" id="update">PUT</button>
         <button class="btn btn-danger" id="delete">DELETE</button>
     </div>
-    <div id="respuesta"></div>
+    
+    <div class="card mt-3">
+        <div class="card-header" >
+            <div id="accionHTML">
+                Elija una acción
+            </div>
+        </div>
+
+        <div class="card-body">
+            <div id="respuesta">
+                Aquí verá las opciones
+            </div>
+        </div>
+    </div>
+
+
 </div>
 
 <!-- ------------------------------ JavaScript ----------------------------- -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
 
-<!-- ---------------------------- Fin JavaScript ---------------------------- -->
 
-
-<!-- <script src="main.js"></script> -->
 <script>
-      
-// var sitio = 'http://0.0.0.0:5000/ejercicios/mostrarListado'
-// var sitio = 'http://127.0.0.1:8000/ejercicios/mostrarListado'
-var sitio = 'https://boiling-cove-03768.herokuapp.com/ejercicios/mostrarListado'
+        
+    // var sitio = 'http://0.0.0.0:5000/ejercicios/mostrarListado'
+    // var sitio = 'http://127.0.0.1:8000/ejercicios/mostrarListado'
+    var sitio = 'https://boiling-cove-03768.herokuapp.com/ejercicios/mostrarListado'
 
 
-function getEjers() {
-axios
-.get(sitio)
-.then(res => showOutput(res))
-// .catch(err => console.error(err))
-}
+// * * * * * * * * * * * * * * * * * * * * Funciones para cada método HTML * * * * * * * * * * * * * * * * * * * * 
 
-
-function addEjer() {
-document.getElementById('respuesta').innerHTML="";
-var resp = document.getElementById('respuesta');
-var div_cardmt3 = document.createElement('div');
-div_cardmt3.setAttribute('class','card mt-3');
-resp.appendChild(div_cardmt3)
-
-var div_cardheader = document.createElement('div');
-div_cardheader.setAttribute('class','card-header');
-div_cardheader.innerHTML="Nuevo ejercicio";
-resp.appendChild(div_cardheader)
-
-var div_cardbody = document.createElement('div');
-div_cardbody.setAttribute('class','card-body');
-resp.appendChild(div_cardbody)
-
-crearFormulario("POST");
-}
-
-function crearFormulario(metodo){
-var br = document.createElement('br');  // Crea un elemento de salto de línea
-
-
-// ----------- Creación del elemento formulario -----------
-// <form id="myForm">  ... </form>
-var formulario = document.createElement('form');
-formulario.setAttribute('id','myForm');
-
-// ----------- Creación de un nuevo input -----------------
-// <input type="text" name="idExistente" placeholder="ID de un ejercicio existente">
-var inputID = document.createElement('input');
-inputID.setAttribute('type','text');
-inputID.setAttribute('id','idExistente');
-inputID.setAttribute('placeholder','ID de un ejercicio existente');
-
-// ----------- Creación de un nuevo input -----------------
-// <input type="text" name="nuevoTitulo" placeholder="Título">
-var inputTitulo = document.createElement('input');
-inputTitulo.setAttribute('type','text');
-inputTitulo.setAttribute('id','nuevoTitulo');
-inputTitulo.setAttribute('placeholder','Título');
-
-// ----------- Creación de un nuevo input -----------------
-// <input type="text" name="nuevoTema" placeholder="Tema">
-var inputTema = document.createElement('input');
-inputTema.setAttribute('type','text');
-inputTema.setAttribute('id','nuevoTema');
-inputTema.setAttribute('placeholder','Tema');
-
-// ----------- Creación de textarea -----------------
-// <textarea name="nuevoEnunc" placeholder="Enunciado" rows="20" cols="50"></textarea>
-var inputEnunc = document.createElement('textarea');
-inputEnunc.setAttribute('rows','20');
-inputEnunc.setAttribute('cols','50');
-inputEnunc.setAttribute('id','nuevoEnunc');
-inputEnunc.setAttribute('placeholder','Enunciado');
-
-// ----------- Creación de enviar -----------------
-// <input type="submit" id="enviar" value="Enviar">
-var inputEnviar = document.createElement('input');
-inputEnviar.setAttribute('type','submit');
-inputEnviar.setAttribute('id','btn-enviar');
-inputEnviar.setAttribute('value','Enviar');
-
-// Apunto a esto:
-//     <div class="card mt-3">
-//         <div class="card-header">
-//         Nuevo ejercicio
-//         </div>
-//         <div class="card-body">
-//             <form class="form">
-//                 <input type="text" id="newTitulo" placeholder="Título"><br>
-//                 <input type="text" id="newTema" placeholder="Tema"><br>
-//                 <textarea id="newEnunc" rows="20" cols="50" placeholder="Enunciado"></textarea><br>
-//                 <input type="submit" id="enviar" value="Enviar"><br>
-//             </form>
-//         </div>
-//     </div>
-//     `;
-
-if (metodo === "POST"){
-// -------------------------------------------------------                
-// ---------- Creación del formulario completo -----------
-
-formulario.appendChild(inputTitulo)
-formulario.appendChild(br.cloneNode())
-formulario.appendChild(inputTema)
-formulario.appendChild(br.cloneNode())
-formulario.appendChild(inputEnunc)
-formulario.appendChild(br.cloneNode())
-formulario.appendChild(inputEnviar)
-document.getElementById('respuesta').appendChild(formulario);
-
-document.getElementById('btn-enviar').addEventListener('click', function(){
-// let titulo = document.querySelector('input#nuevoTitulo').value;
-// let tema = document.querySelector('input#nuevoTema').value;
-// let enunciado = document.querySelector('textarea#nuevoEnunc').value;
-var titulo = document.getElementById("nuevoTitulo").value;
-var tema = document.getElementById("nuevoTema").value;
-var enunciado = document.getElementById("nuevoEnunc").value;
-enviar(titulo,tema,enunciado)
-})
-} else if (metodo === "PUT") {
-formulario.appendChild(inputID)
-formulario.appendChild(br.cloneNode())
-formulario.appendChild(inputTitulo)
-formulario.appendChild(br.cloneNode())
-formulario.appendChild(inputTema)
-formulario.appendChild(br.cloneNode())
-formulario.appendChild(inputEnunc)
-formulario.appendChild(br.cloneNode())
-formulario.appendChild(inputEnviar)
-document.getElementById('respuesta').appendChild(formulario);
-
-document.getElementById('btn-enviar').addEventListener('click', function(){
-var ID = document.getElementById("idExistente").value;
-var titulo = document.getElementById("nuevoTitulo").value;
-var tema = document.getElementById("nuevoTema").value;
-var enunciado = document.getElementById("nuevoEnunc").value;
-modificar(ID,titulo,tema,enunciado)
-})
-}
-}
-
-function enviar(nuevoTitulo,nuevoTema,nuevoEnunc){
-var nuevoEjercicio = {
-titulo:nuevoTitulo,
-tema: nuevoTema,
-enunciado: nuevoEnunc
-}
-axios
-.post(sitio,nuevoEjercicio)
-.then(res => showOutput(res))
-// .catch(err => console.error(err))
-}
-
-function modificar(ID,modifTitulo,modifTema,modifEnunc){
-var modifEjercicio = {
-titulo:modifTitulo,
-tema: modifTema,
-enunciado: modifEnunc
-}
-axios
-.put(sitio+'/'+ID,modifEjercicio)
-.then(res => showOutput(res))
-// .catch(err => console.error(err))
-}
-
-// PUT/PATCH REQUEST
-function updateEjer() {
-document.getElementById('respuesta').innerHTML="";
-var resp = document.getElementById('respuesta');
-var div_cardmt3 = document.createElement('div');
-div_cardmt3.setAttribute('class','card mt-3');
-resp.appendChild(div_cardmt3)
-
-var div_cardheader = document.createElement('div');
-div_cardheader.setAttribute('class','card-header');
-div_cardheader.innerHTML="Nuevo ejercicio";
-resp.appendChild(div_cardheader)
-
-var div_cardbody = document.createElement('div');
-div_cardbody.setAttribute('class','card-body');
-resp.appendChild(div_cardbody)
-
-crearFormulario("PUT");
-}
-
-// DELETE REQUEST
-function removeEjer() {
-document.getElementById('respuesta').innerHTML="";
-
-var resp = document.getElementById('respuesta');
-
-var div_cardmt3 = document.createElement('div');
-div_cardmt3.setAttribute('class','card mt-3');
-resp.appendChild(div_cardmt3)
-
-var div_cardheader = document.createElement('div');
-div_cardheader.setAttribute('class','card-header');
-div_cardheader.innerHTML="¿Qué número de ejercicio desea borrar?";
-resp.appendChild(div_cardheader)
-
-var div_cardbody = document.createElement('div');
-div_cardbody.setAttribute('class','card-body');
-resp.appendChild(div_cardbody);
-
-var input_Borrar = document.createElement('input');
-input_Borrar.setAttribute('type','text');
-input_Borrar.setAttribute('id','input_Borrar');
-
-var input_Enviar = document.createElement('input');
-input_Enviar.setAttribute('type','submit');
-input_Enviar.setAttribute('value','Enviar');
-input_Enviar.setAttribute('id','btn-enviar');
-
-resp.appendChild(input_Borrar)
-resp.appendChild(input_Enviar)
-
-
-document.getElementById('btn-enviar').addEventListener('click', function(){
-var aBorrar = document.getElementById("input_Borrar").value;
-aBorrar = parseInt(aBorrar);
-console.log(aBorrar);
-
-axios
-.delete(sitio+'/'+aBorrar)
-.then(res => showOutput(res))
-// .catch(err => console.error(err))    
-}) 
-
-}
-
-
-// AXIOS INSTANCES
-
-// Show output in browser
-function showOutput(res) {
-document.getElementById('respuesta').innerHTML = `
-
-<div class="card mt-3">
-<div class="card-header">
-Data
-</div>
-<div class="card-body">
-<pre>${JSON.stringify(res.data, null, 2)}</pre>
-</div>
-</div>
-
-`;
-}
-
-
-// ----------------------- Cuerpo principal -------------------
-// Event listeners
-document.getElementById('get').addEventListener('click', getEjers);
-document.getElementById('post').addEventListener('click', addEjer);
-document.getElementById('update').addEventListener('click', updateEjer);
-document.getElementById('delete').addEventListener('click', removeEjer);
+    // --------------------------------------- En caso de recibir GET ---------------------------------------
+    function getEjers() {
+        document.getElementById("accionHTML").innerHTML = "Datos obtenidos";
+        axios
+            .get(sitio)
+            .then(res => showOutput(res))
+            .catch(err => console.error(err))
+    } // ---- Fin getEjers ----
 
 
 
+    // --------------------------------------- En caso de recibir POST ---------------------------------------
+    function addEjer() {
+        document.getElementById("accionHTML").innerHTML = "Ingrese nuevo ejercicio";
+        // Referencia a la sección de acciones en el HTML:
+        var resp = document.getElementById('respuesta');
 
-// function esperar(milliseconds){
-//     var start = new Date().getTime();
-//     var end=0;
-//     while( (end-start) < milliseconds){
-//         end = new Date().getTime();
-//     }
-// }
+        // Limpiar espacio de acciones
+        resp.innerHTML="";
+
+        // Creación y envío del formulario con el método elegido.
+        crearFormulario("POST");
+    }// ---- Fin addEjer ----
+
+
+    // --------------------------------------- En caso de recibir PUT ---------------------------------------
+    function updateEjer() {
+        // Referencia a la sección de acciones en el HTML:
+        var resp = document.getElementById('respuesta');
+
+        // Limpiar espacio de acciones
+        resp.innerHTML="";
+        
+        document.getElementById("accionHTML").innerHTML = "Modificar ejercicio";
+        
+        crearFormulario("PUT");
+    }// ---- Fin updateEjer ----
+
+    // --------------------------------------- En caso de recibir DELETE ---------------------------------------
+    function removeEjer() {
+        // Referencia a la sección de acciones en el HTML:
+        var resp = document.getElementById('respuesta');
+
+        // Limpiar espacio de acciones
+        resp.innerHTML="";
+
+        document.getElementById("accionHTML").innerHTML = "¿Qué número de ejercicio desea borrar?";
+
+        // Creación de <input type="text" id="input_Borrar">
+        var input_Borrar = document.createElement('input');
+            input_Borrar.setAttribute('type','text');
+            input_Borrar.setAttribute('id','input_Borrar');
+
+        // Creación de <input type="submit" id="btn-enviar">
+        var input_Enviar = document.createElement('input');
+            input_Enviar.setAttribute('type','submit');
+            input_Enviar.setAttribute('value','Enviar');
+            input_Enviar.setAttribute('id','btn-enviar');
+
+        // Ensamblado de los elementos HTML
+        resp.appendChild(input_Borrar)
+        resp.appendChild(input_Enviar)
+
+        document.getElementById('btn-enviar').addEventListener('click', function(){
+        var aBorrar = document.getElementById("input_Borrar").value;
+        aBorrar = parseInt(aBorrar);
+
+        axios
+        .delete(sitio+'/'+aBorrar)
+        .then(res => showOutput(res))
+        .catch(err => console.error(err))    
+        }) 
+
+    }// ---- Fin removeEjer ----
+
+    // * * * * * * * * * * * * * * * * * * * * Funciones generales * * * * * * * * * * * * * * * * * * * * 
+    function crearFormulario(metodo){
+        var br = document.createElement('br');  // Crea un elemento de salto de línea
+
+        // ----------- Creación del elemento formulario -----------
+        // <form id="myForm">  ... </form>
+        var formulario = document.createElement('form');     
+            formulario.setAttribute('id','myForm');
+
+        // ----------- Creación de un nuevo input -----------------
+        // <input type="text" name="idExistente" placeholder="ID de un ejercicio existente">
+        var inputID = document.createElement('input');
+            inputID.setAttribute('type','text');
+            inputID.setAttribute('id','idExistente');
+            inputID.setAttribute('placeholder','ID de un ejercicio existente');
+
+        // ----------- Creación de un nuevo input -----------------
+        // <input type="text" name="nuevoTitulo" placeholder="Título">
+        var inputTitulo = document.createElement('input');
+            inputTitulo.setAttribute('type','text');
+            inputTitulo.setAttribute('id','nuevoTitulo');
+            inputTitulo.setAttribute('placeholder','Título');
+
+        // ----------- Creación de un nuevo input -----------------
+        // <input type="text" name="nuevoTema" placeholder="Tema">
+        var inputTema = document.createElement('input');
+            inputTema.setAttribute('type','text');
+            inputTema.setAttribute('id','nuevoTema');
+            inputTema.setAttribute('placeholder','Tema');
+
+        // ----------- Creación de textarea -----------------
+        // <textarea name="nuevoEnunc" placeholder="Enunciado" rows="20" cols="50"></textarea>
+        var inputEnunc = document.createElement('textarea');
+            inputEnunc.setAttribute('rows','20');
+            inputEnunc.setAttribute('cols','50');
+            inputEnunc.setAttribute('id','nuevoEnunc');
+            inputEnunc.setAttribute('placeholder','Enunciado');
+
+        // ----------- Creación de enviar -----------------
+        // <input type="submit" id="enviar" value="Enviar">
+        var inputEnviar = document.createElement('input');
+            inputEnviar.setAttribute('type','submit');
+            inputEnviar.setAttribute('id','btn-enviar');
+            inputEnviar.setAttribute('value','Enviar');
+
+        if (metodo === "POST"){
+
+            // Ensamblado del formulario
+            formulario.appendChild(inputTitulo)
+            formulario.appendChild(br.cloneNode())
+            formulario.appendChild(inputTema)
+            formulario.appendChild(br.cloneNode())
+            formulario.appendChild(inputEnunc)
+            formulario.appendChild(br.cloneNode())
+            formulario.appendChild(inputEnviar)
+            document.getElementById('respuesta').appendChild(formulario);
+            
+            // Al hacer click en "enviar", generar formulario interno, y enviar
+            document.getElementById('btn-enviar').addEventListener('click', function(){
+                let data = new FormData();    // Para que lo envíe correctamente AXIOS               
+                data.append("titulo", document.getElementById('nuevoTitulo').value)  
+                data.append("tema", document.getElementById('nuevoTema').value)
+                data.append("enunciado", document.getElementById('nuevoEnunc').value)
+                data.append("csrfmiddlewaretoken", '{{csrf_token}}')
+                enviar(data)
+            })
+
+        } else if (metodo === "PUT") {
+
+            // Ensamblado del formulario
+            formulario.appendChild(inputID)
+            formulario.appendChild(br.cloneNode())
+            formulario.appendChild(inputTitulo)
+            formulario.appendChild(br.cloneNode())
+            formulario.appendChild(inputTema)
+            formulario.appendChild(br.cloneNode())
+            formulario.appendChild(inputEnunc)
+            formulario.appendChild(br.cloneNode())
+            formulario.appendChild(inputEnviar)
+            document.getElementById('respuesta').appendChild(formulario);
+
+            // Al hacer click en "enviar", generar formulario interno, asociado a cierto ID, y enviar modificaciones
+            document.getElementById('btn-enviar').addEventListener('click', function(){
+                let ID = document.getElementById("idExistente").value;
+                let data = new FormData();
+                data.append(   "titulo"  , document.getElementById( 'nuevoTitulo').value)  
+                data.append(   "tema"    , document.getElementById(  'nuevoTema' ).value)
+                data.append( "enunciado" , document.getElementById( 'nuevoEnunc' ).value)
+                data.append("csrfmiddlewaretoken", '{{csrf_token}}')
+                modificar(ID,data)
+            })
+        }
+    }// ---- Fin crearFormulario ----
+
+    function enviar(datos){
+        axios
+            .post(sitio,datos)
+            .then(res => showOutput(res))
+            .catch(err => console.error(err))
+    }// ---- Fin enviar ----
+
+    function modificar(ID,modifEjercicio){
+        axios
+            .put(sitio+'/'+ID,modifEjercicio)
+            .then(res => showOutput(res))
+            .catch(err => console.error(err))
+    }// ---- Fin modificar ----
+
+    function showOutput(res) {
+        document.getElementById('respuesta').innerHTML = `
+        <pre>${JSON.stringify(res.data, null, 2)}</pre>
+        `;
+
+    }// ---- Fin showOutput ----
+
+
+    //   function esperar(milliseconds){
+    //         var start = new Date().getTime();
+    //         var end=0;
+    //         while( (end-start) < milliseconds){
+    //             end = new Date().getTime();
+    //         }
+    //     }
+
+
+    // * * * * * * * * * * * * * * * * * * * * Cuerpo principal * * * * * * * * * * * * * * * * * * * * 
+    // Event listeners
+    document.getElementById('get').addEventListener('click', getEjers);
+    document.getElementById('post').addEventListener('click', addEjer);
+    document.getElementById('update').addEventListener('click', updateEjer);
+    document.getElementById('delete').addEventListener('click', removeEjer);
 
 </script>
 
