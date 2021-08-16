@@ -109,8 +109,11 @@
         var aBorrar = document.getElementById("input_Borrar").value;
         aBorrar = parseInt(aBorrar);
 
+        let data = new FormData();
+            data.append("csrfmiddlewaretoken", '{{csrf_token}}')
+
         axios
-        .delete(sitio+'/'+aBorrar)
+        .delete(sitio+'/'+aBorrar,data)
         .then(res => showOutput(res))
         .catch(err => console.error(err))    
         }) 
