@@ -27,8 +27,8 @@ def ejercicios(request):
 
 
 class listado_view(APIView):
+    http_method_names = ['GET', 'POST' 'PUT', 'DELETE']
     
-    # READ a single Todo
     def get_object(self, pk):
         try:
             return Ejercicio.objects.get(pk=pk)
