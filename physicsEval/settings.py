@@ -39,7 +39,8 @@ else:
         # "http://0.0.0.0:5000/ejercicios/ver-listado"
     ]
     CORS_ORIGIN_WHITELIST = (
-        'http://localhost:8081',
+        'https://boiling-cove-03768.herokuapp.com/',
+        'https://boiling-cove-03768.herokuapp.com/ejercicios/ver-listado'
     )
 
 
