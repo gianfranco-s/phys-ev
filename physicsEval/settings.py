@@ -33,15 +33,9 @@ else:
     CORS_ORIGIN_ALLOW_ALL = False
     CORS_ALLOWED_ORIGINS = [
         "https://boiling-cove-03768.herokuapp.com/",
-        # "https://boiling-cove-03768.herokuapp.com/ejercicios/ver-listado",
         "http://127.0.0.1:8000",
         "http://0.0.0.0:5000",
-        # "http://0.0.0.0:5000/ejercicios/ver-listado"
     ]
-    CORS_ORIGIN_WHITELIST = (
-        'https://boiling-cove-03768.herokuapp.com/',
-        'https://boiling-cove-03768.herokuapp.com/ejercicios/ver-listado'
-    )
 
 
 # Application definition
@@ -60,7 +54,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
+    # 'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
