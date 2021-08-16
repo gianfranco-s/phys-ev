@@ -178,3 +178,9 @@ import django_on_heroku
 django_on_heroku.settings(locals())
 
 
+# Prueba 20210816 13:25
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    )
+}
