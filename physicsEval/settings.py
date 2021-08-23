@@ -5,7 +5,11 @@ load_dotenv()
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+# BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Tomado de la ayuda de Heroku
+# https://devcenter.heroku.com/articles/django-assets
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
@@ -159,15 +163,22 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 
+# Tomado de la ayuda de Heroku
+# https://devcenter.heroku.com/articles/django-assets
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
-# Según django-Girls (no me anduvo):
+# Según django-Girls, para archivos estáticos (no me anduvo):
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# Según ordinary-coders:
-STATICFILES_DIRS = [ os.path.join(BASE_DIR, "static"), ]
+# Según ordinary-coders (anduvo, pero en Heroku lo hacen diferente):
+# STATICFILES_DIRS = [ os.path.join(BASE_DIR, "static"), ]
 
+# Tomado de la ayuda de Heroku
+# https://devcenter.heroku.com/articles/django-assets
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
 
 
 # Default primary key field type
