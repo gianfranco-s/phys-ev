@@ -23,7 +23,7 @@ SECRET_KEY = str(os.getenv('SECRET_KEY'))
 # https://boiling-cove-03768.herokuapp.com/
 # Mirror in
 # https://github.com/gianfranco-s/physEvHeroku.git
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['0.0.0.0',
     '127.0.0.1',
