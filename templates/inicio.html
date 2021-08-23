@@ -2,10 +2,34 @@
 
 
 {% block contenido %}
-    <h1>Página de autoevaluaciones de Física</h1>
-    <p>Aquí podrás resolver numéricamente ejercicios de mecánica, electricidad y magnetismo.</p>
-    <a href="accounts/login">Login</a> <br>
-    <a href="accounts/signup">Signup</a> <br>
-    <a href="ejercicios/ver-listado">Listado de ejercicios</a>
+    <div class="text-center">
+        <h1 class="display-4 text-center mb-3">Autoevaluaciones de Física</h1>
+        <h4>Aquí podrás resolver numéricamente ejercicios de mecánica, electricidad y magnetismo.</h4>
+    </div>
+    
+    <!-- <a href="ejercicios/mostrarListado">
+        <button class="btn btn-primary my-3">Ver todos los ejercicios</button>
+    </a> <br> -->
+
+    <a href="ejercicios">
+        <button class="btn btn-primary my-3">Ver un ejercicio aleatorio</button>
+    </a> <br>
+
+    <!-- <a href="accounts/login">
+        <button class="btn btn-primary my-3">Login</button>
+    </a> <br> -->
+
+    <a href="accounts/signup">
+        <button class="btn btn-primary my-3">Signup</button>
+    </a> <br>
+
+    <a href="ejercicios/ver-listado">
+        <button class="btn btn-primary my-3">Alta, baja y modificación de ejercicios</button>
+    </a> <br>
+
+    <a href="about">
+        <button class="btn btn-primary my-3">Sobre los creadores de la página</button>
+    </a> <br>
+
 
 {% endblock %}

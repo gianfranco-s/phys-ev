@@ -15,9 +15,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECRET_KEY = 'django-insecure-@g*m6n6zcewman&$8t-iqxfy*l10&k#f#c9huf6%)-%-f=o-xv'  # Esta línea se creó por defecto. Generé una nueva SECRET_KEY, y la guardé en .env
 SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
-# SECURITY WARNING: don't run with debug turned on in production!
+
 # https://boiling-cove-03768.herokuapp.com/
-DEBUG = False
+# Mirror in
+# https://github.com/gianfranco-s/physEvHeroku.git
+DEBUG = True
 
 ALLOWED_HOSTS = ['0.0.0.0',
     '127.0.0.1',
@@ -50,7 +52,7 @@ INSTALLED_APPS = [
     'ejercicios',
     'usuarios',
     'rest_framework',
-    'corsheaders',
+    # 'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -156,15 +158,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_FILES_DIRS = [
-    os.path.join(BASE_DIR, 'recursos')
-]
 
 STATIC_URL = '/static/'
+
+# Según django-Girls (no me anduvo):
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-# STATIC_FILES_DIRS = [
-#     os.path.join(BASE_DIR, '/recursos'),
-# ]   # Tengo que crear una carpeta llamada "recursos"
+
+# Según ordinary-coders:
+STATICFILES_DIRS = [ os.path.join(BASE_DIR, "static"), ]
 
 
 

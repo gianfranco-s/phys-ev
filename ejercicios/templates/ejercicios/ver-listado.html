@@ -2,7 +2,7 @@
 
 
 {% block contenido %}
-
+    {% if user.is_authenticated %}
 <div class="container my-5">
     <div class="text-center">
         <h1 class="display-4 text-center mb-3">Alta, baja y modificación de ejercicios</h1>
@@ -35,9 +35,12 @@
 
 <script>
         
+    var sitio = window.location.origin
+        sitio += '/ejercicios/mostrarListado'
+    // console.log(sitio);
     // var sitio = 'http://0.0.0.0:5000/ejercicios/mostrarListado'
     // var sitio = 'http://127.0.0.1:8000/ejercicios/mostrarListado'
-    var sitio = 'https://boiling-cove-03768.herokuapp.com/ejercicios/mostrarListado'
+    // var sitio = 'https://boiling-cove-03768.herokuapp.com/ejercicios/mostrarListado'
 
 
 // * * * * * * * * * * * * * * * * * * * * Funciones para cada método HTML * * * * * * * * * * * * * * * * * * * * 
@@ -255,5 +258,15 @@
 </script>
 
     <!-- ---------------------------- Fin JavaScript ---------------------------- -->
+
+    {% endif %}
+
+    {% if not user.is_authenticated %}
+    <div class="text-center row-5">
+        <br><br><br><br>
+        <h1>Alta, baja y modificación de usuarios</h1>
+        <p>(Es necesario tener una cuenta para utilizar los servicios de la página.)</p>
+    </div>      
+    {% endif %}
 
 {% endblock %}
