@@ -16,17 +16,23 @@
         <a href="{% url 'paginaInicio' %}">
             <button class="btn btn-warning m-2 col-2">Inicio</button>
         </a>
+
+        <a href="{% url 'usuarios:crear' %}">
+            <button class="btn btn-info m-2 col-2 float-end ">Crear usuario</button>
+        </a>
         
         {% if user.is_authenticated %}
             <form action="{% url 'usuarios:salir' %}" method="POST">
                 {% csrf_token %}
-                <button class="btn btn-info m-2 col-2 float-end">Logout</button>
+                <button class="btn btn-info m-2 col-2 float-end">Salir</button>
             </form>
         
         
         {% else %}
+       
+            <br>
             <a href="{% url 'usuarios:ingreso' %}">
-                <button class="btn btn-info m-2 col-2 float-end ">Login</button>
+                <button class="btn btn-info m-2 col-2 float-end ">Ingresar</button>
             </a>
         {% endif %}
     </span>
