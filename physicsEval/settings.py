@@ -115,15 +115,24 @@ else:
             # Me traje esta variable de settings en Heroku (reveal config vars)
     #postgres://jsfwxbkhyjmxoa:3fe3d1dbf39c1e67ce2d10efdc73c71301d196f366ad298fd62672eacf0da248@ec2-34-204-128-77.compute-1.amazonaws.com:5432/dek6qdlh5nn5k8
             
+            # 'ENGINE': 'django.db.backends.postgresql',
+            # 'NAME' : 'dek6qdlh5nn5k8',
+            # 'HOST' : 'ec2-34-204-128-77.compute-1.amazonaws.com:',
+            # 'PORT' : 5432,
+            # 'USER' : 'jsfwxbkhyjmxoa',
+            # 'PASSWORD': '3fe3d1dbf39c1e67ce2d10efdc73c71301d196f366ad298fd62672eacf0da248',
+
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME' : 'dek6qdlh5nn5k8',
-            'HOST' : 'ec2-34-204-128-77.compute-1.amazonaws.com:',
+            'NAME' : 'd5q0plajcpuhe5',
+            'HOST' : 'ec2-44-196-8-220.compute-1.amazonaws.com:',
             'PORT' : 5432,
-            'USER' : 'jsfwxbkhyjmxoa',
-            'PASSWORD': '3fe3d1dbf39c1e67ce2d10efdc73c71301d196f366ad298fd62672eacf0da248',
+            'USER' : 'lajyylaixxblil',
+            'PASSWORD': '0f7ca38b6ff65dbcd643d8c802ab4fca472a9e6cfea4d3aac8107f8910762df6',
             # -----------------------------------------------------------------------------------
         }
     }
+
+
 
 
 # Password validation
