@@ -23,7 +23,7 @@ SECRET_KEY = str(os.getenv('SECRET_KEY'))
 # https://boiling-cove-03768.herokuapp.com/
 # Mirror in
 # https://github.com/gianfranco-s/physEvHeroku.git
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['0.0.0.0',
     '127.0.0.1',
@@ -166,6 +166,7 @@ USE_TZ = True
 # Tomado de la ayuda de Heroku
 # https://devcenter.heroku.com/articles/django-assets
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 STATIC_URL = '/static/'
 
 # Según django-Girls, para archivos estáticos (no me anduvo):
