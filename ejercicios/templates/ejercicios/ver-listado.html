@@ -112,13 +112,14 @@
         var aBorrar = document.getElementById("input_Borrar").value;
         aBorrar = parseInt(aBorrar);
 
-        let data = new FormData();
-            data.append("csrfmiddlewaretoken", '{{csrf_token}}')
+        
+        let dire = sitio+'/'+aBorrar;
 
         axios
-        .delete(sitio+'/'+aBorrar,data)
-        .then(res => showOutput(res))
-        .catch(err => console.error(err))    
+            .delete(dire,{headers: {"X-CSRFToken": '{{csrf_token}}'},})
+            .then(res => showOutput(res))
+            .catch(error => {console.error(error.response.data)});
+        
         }) 
 
     }// ---- Fin removeEjer ----
@@ -154,12 +155,20 @@
             inputTema.setAttribute('placeholder','Tema');
 
         // ----------- Creación de textarea -----------------
-        // <textarea name="nuevoEnunc" placeholder="Enunciado" rows="20" cols="50"></textarea>
+        // <textarea placeholder="Enunciado" rows="20" cols="50"></textarea>
         var inputEnunc = document.createElement('textarea');
-            inputEnunc.setAttribute('rows','20');
+            inputEnunc.setAttribute('rows','10');
             inputEnunc.setAttribute('cols','50');
             inputEnunc.setAttribute('id','nuevoEnunc');
             inputEnunc.setAttribute('placeholder','Enunciado');
+
+        // ----------- Creación de otro textarea -----------------
+        // <textarea placeholder="Algoritmo" rows="20" cols="50"></textarea>
+        var inputAlg = document.createElement('textarea');
+            inputAlg.setAttribute('rows','10');
+            inputAlg.setAttribute('cols','50');
+            inputAlg.setAttribute('id','nuevoAlg');
+            inputAlg.setAttribute('placeholder','Algoritmo');
 
         // ----------- Creación de enviar -----------------
         // <input type="submit" id="enviar" value="Enviar">
@@ -177,6 +186,8 @@
             formulario.appendChild(br.cloneNode())
             formulario.appendChild(inputEnunc)
             formulario.appendChild(br.cloneNode())
+            formulario.appendChild(inputAlg)
+            formulario.appendChild(br.cloneNode())
             formulario.appendChild(inputEnviar)
             document.getElementById('respuesta').appendChild(formulario);
             
@@ -186,6 +197,7 @@
                 data.append("titulo", document.getElementById('nuevoTitulo').value)  
                 data.append("tema", document.getElementById('nuevoTema').value)
                 data.append("enunciado", document.getElementById('nuevoEnunc').value)
+                data.append("algoritmo", document.getElementById('nuevoAlg').value)
                 data.append("csrfmiddlewaretoken", '{{csrf_token}}')
                 enviar(data)
             })
@@ -201,6 +213,8 @@
             formulario.appendChild(br.cloneNode())
             formulario.appendChild(inputEnunc)
             formulario.appendChild(br.cloneNode())
+            formulario.appendChild(inputAlg)
+            formulario.appendChild(br.cloneNode())
             formulario.appendChild(inputEnviar)
             document.getElementById('respuesta').appendChild(formulario);
 
@@ -211,7 +225,8 @@
                 data.append(   "titulo"  , document.getElementById( 'nuevoTitulo').value)  
                 data.append(   "tema"    , document.getElementById(  'nuevoTema' ).value)
                 data.append( "enunciado" , document.getElementById( 'nuevoEnunc' ).value)
-                data.append("csrfmiddlewaretoken", '{{csrf_token}}')
+                data.append( "algoritmo" , document.getElementById(  'nuevoAlg'  ).value)
+                data.append("X-CSRFToken", '{{csrf_token}}')
                 modificar(ID,data)
             })
         }
@@ -226,7 +241,7 @@
 
     function modificar(ID,modifEjercicio){
         axios
-            .put(sitio+'/'+ID,modifEjercicio)
+            .put(sitio+'/'+ID,modifEjercicio,{headers: {"X-CSRFToken": '{{csrf_token}}'},})
             .then(res => showOutput(res))
             .catch(err => console.error(err))
     }// ---- Fin modificar ----

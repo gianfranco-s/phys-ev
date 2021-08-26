@@ -23,7 +23,7 @@ SECRET_KEY = str(os.getenv('SECRET_KEY'))
 # https://boiling-cove-03768.herokuapp.com/
 # Mirror in
 # https://github.com/gianfranco-s/physEvHeroku.git
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['0.0.0.0',
     '127.0.0.1',
@@ -102,7 +102,7 @@ if DEBUG:
             # -----------------------------------------------------------------------------------
             # Para hacer debug localmente, estoy teniendo que descomentar estas dos líneas
             'ENGINE': 'django.db.backends.sqlite3',    # Venía por defecto al crear el proyecto.
-            'NAME': BASE_DIR / 'db.sqlite3',           # Venía por defecto al crear el proyecto.
+            'NAME': BASE_DIR + 'db.sqlite3',           # Venía por defecto al crear el proyecto.
             # -----------------------------------------------------------------------------------
         }
     }
