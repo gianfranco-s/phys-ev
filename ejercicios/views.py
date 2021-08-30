@@ -22,11 +22,11 @@ def ejercicios(request):
     }
 
     # Para cuando se implemente la funcionalidad de cálculo y reemplazo de variables
-    # consigna = unEjer.redactar()
-    # contexto = {
-    #     'ejercicio':unEjer,
-    #     'consigna':consigna
-    # }
+    consigna = unEjer.redactar()
+    contexto = {
+        'ejercicio':unEjer,
+        'consigna':consigna
+    }
 
     return render(request,'ejercicios/ejercicios.html',contexto)
 
