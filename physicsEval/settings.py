@@ -20,15 +20,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
 
-# https://boiling-cove-03768.herokuapp.com/
+# https://phys-eval.herokuapp.com/
 # Mirror in
 # https://github.com/gianfranco-s/physEvHeroku.git
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0',
-    '127.0.0.1',
-    'localhost',
-    'https://boiling-cove-03768.herokuapp.com/',]
+ALLOWED_HOSTS = ['*']
 
 # CORS
 if DEBUG:
@@ -110,18 +107,9 @@ else:
     DATABASES = {
         'default': {
             # -----------------------------------------------------------------------------------
-            # Para que ande en Heroku, tengo que descomentar desde ENGINE hasta PASSWORD
+            # Para que ande en Heroku, usar PostgreSQL
             
-            # Me traje esta variable de settings en Heroku (reveal config vars)
-    #postgres://jsfwxbkhyjmxoa:3fe3d1dbf39c1e67ce2d10efdc73c71301d196f366ad298fd62672eacf0da248@ec2-34-204-128-77.compute-1.amazonaws.com:5432/dek6qdlh5nn5k8
-            
-            # 'ENGINE': 'django.db.backends.postgresql',
-            # 'NAME' : 'dek6qdlh5nn5k8',
-            # 'HOST' : 'ec2-34-204-128-77.compute-1.amazonaws.com:',
-            # 'PORT' : 5432,
-            # 'USER' : 'jsfwxbkhyjmxoa',
-            # 'PASSWORD': '3fe3d1dbf39c1e67ce2d10efdc73c71301d196f366ad298fd62672eacf0da248',
-
+            # Estos datos se encuentran dentro ed UNA variable en settings en Heroku (reveal config vars)
             'ENGINE': 'django.db.backends.postgresql',
             'NAME' : 'd5q0plajcpuhe5',
             'HOST' : 'ec2-44-196-8-220.compute-1.amazonaws.com:',

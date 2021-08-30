@@ -1,29 +1,32 @@
 from django.http.response import Http404
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import viewsets
-from rest_framework.decorators import action
-
 from django.shortcuts import render
-
 from .models import Ejercicio
-
 from .serializers import serializarEjercicio
-
 from django.contrib.auth.decorators import login_required
 import random
 
 
 
 def ejercicios(request):
+    # Elección aleatoria de un ejercicio
     cantEjer = len(Ejercicio.objects.all())
     indiceAleat = random.randint(0,cantEjer-1)
     unEjer = Ejercicio.objects.all()[indiceAleat]
     
     contexto = {
-        'ejercicio':unEjer
+        'ejercicio':unEjer,
     }
-    
+
+    # Para cuando se implemente la funcionalidad de cálculo y reemplazo de variables
+    consigna = unEjer.redactar()
+    print(consigna)
+    contexto = {
+        'ejercicio':unEjer,
+        'consigna':consigna
+    }
+
     return render(request,'ejercicios/ejercicios.html',contexto)
 
 
@@ -97,4 +100,3 @@ def verListado(request):
     '''
     
     return render(request,'ejercicios/ver-listado.html')
-
