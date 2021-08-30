@@ -17,14 +17,8 @@ class Ejercicio(models.Model):
         '''
         Crea un módulo en base al algoritmo cargado por el usuario.
         '''
-
+        
         os.makedirs('./temp_data', exist_ok=True)
-        print("")
-        print("")
-        print(os.getcwd())
-        print(os.listdir('.'))
-        print("")
-        print("")
 
         with open('./temp_data/algoritmo.py','w') as algoritmo_file:
             algoritmo_file.write(self.algoritmo)

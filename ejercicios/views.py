@@ -16,16 +16,17 @@ def ejercicios(request):
     unEjer = Ejercicio.objects.all()[indiceAleat]
     
     contexto = {
-        'ejercicio':unEjer,
+        'titulo':unEjer.titulo,
+        'tema':unEjer.tema,
+        'consigna':unEjer.enunciado,
     }
 
     # Para cuando se implemente la funcionalidad de cálculo y reemplazo de variables
-    consigna = unEjer.redactar()
-    print(consigna)
-    contexto = {
-        'ejercicio':unEjer,
-        'consigna':consigna
-    }
+    # consigna = unEjer.redactar()
+    # contexto = {
+    #     'ejercicio':unEjer,
+    #     'consigna':consigna
+    # }
 
     return render(request,'ejercicios/ejercicios.html',contexto)
 
