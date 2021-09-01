@@ -23,7 +23,7 @@ SECRET_KEY = str(os.getenv('SECRET_KEY'))
 # https://phys-eval.herokuapp.com/
 # Mirror in
 # https://github.com/gianfranco-s/physEvHeroku.git
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 

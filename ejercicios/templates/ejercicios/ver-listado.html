@@ -1,276 +1,101 @@
 {% extends "base_layout.html" %}
 
+{% load static %}
+
 
 {% block contenido %}
     {% if user.is_authenticated %}
-<div class="container my-5">
-    <div class="text-center">
-        <h1 class="display-4 text-center mb-3">Alta, baja y modificación de ejercicios</h1>
-        <button class="btn btn-primary my-3" id="get">GET</button>
-        <button class="btn btn-info" id="post">POST</button>
-        <button class="btn btn-warning" id="update">PUT</button>
-        <button class="btn btn-danger" id="delete">DELETE</button>
+    <div id="abm">
+
+        <div class="container my-5">
+            <div class="text-center">
+                <h1 class="display-4 text-center mb-3">Alta, baja y modificación de ejercicios</h1>
+                <button class="btn btn-primary my-3" id="get" @click="m_get">GET</button>
+                <button class="btn btn-info" id="post" @click="m_pst">POST</button>
+                <button class="btn btn-warning" id="update" @click="m_put">PUT</button>
+                <button class="btn btn-danger" id="delete" @click="m_dlt">DELETE</button>
+            </div>
+            
+            <div class="card mt-3">
+                <div class="card-header" >
+    
+                    <div id="accionHTML">
+                        [[ accion ]]
+                    </div>
+    
+                </div>
+                
+    
+                <div class="card-body">
+                    <div>
+    
+                        <div v-if="!mostrar_get && !mostrar_pst && !mostrar_put && !mostrar_dlt">
+                            Aquí se verán las opciones.
+                        </div>
+    
+                        <div v-if="mostrar_get">
+                            <div id="respuesta">
+                                
+                            </div>
+                        </div>
+    
+                        <div v-if="mostrar_pst" id="respuesta">
+                            <form id="myForm" @submit.prevent="send_pst">
+                                <input type="text" id="titulo" placeholder="Título" v-model='titulo'><br>
+                                <input type="text" id="tema" placeholder="Tema" v-model='tema'><br>
+                                <textarea rows="10" cols="50" id="enunciado" placeholder="Enunciado" v-model='enunciado'></textarea><br>
+                                <textarea rows="10" cols="50" id="algoritmo" placeholder="Algoritmo" v-model='algoritmo'></textarea><br>
+                                <input type="submit" id="btn-enviar" value="Enviar">
+                            </form>
+                            
+                        </div>
+                        
+    
+                        <div v-if="mostrar_put" @submit.prevent="send_put" id="respuesta">
+                            <form id="myForm">
+                                <input type="text" id="idExistente" placeholder="ID de un ejercicio existente" v-model='id'><br>
+                                <input type="text" id="nuevoTitulo" placeholder="Título" v-model='titulo'><br>
+                                <input type="text" id="nuevoTema" placeholder="Tema" v-model='tema'><br>
+                                <textarea rows="10" cols="50" id="nuevoEnunc" placeholder="Enunciado" v-model='enunciado'></textarea><br>
+                                <textarea rows="10" cols="50" id="nuevoAlg" placeholder="Algoritmo" v-model='algoritmo'></textarea><br>
+                                <input type="submit" id="btn-enviar" value="Enviar">
+                            </form>
+                        </div>
+                        
+    
+                        <div v-if="mostrar_dlt" id="respuesta">
+                            <form id="myForm" @submit.prevent="send_dlt">
+                                <input type="text" id="input_Borrar" v-model='id'>
+                                <input type="submit" value="Enviar" id="btn-enviar">
+                            </form>
+                        </div>
+    
+    
+                    </div>
+                </div>
+    
+    
+               
+            </div>
+        
+        
+        </div>
+        
+    
+       
+    
     </div>
     
-    <div class="card mt-3">
-        <div class="card-header" >
-            <div id="accionHTML">
-                Elija una acción
-            </div>
-        </div>
-
-        <div class="card-body">
-            <div id="respuesta">
-                Aquí verá las opciones
-            </div>
-        </div>
-    </div>
-
-
-</div>
-
-<!-- ------------------------------ JavaScript ----------------------------- -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
-
-
-<script>
-        
-    var sitio = window.location.origin
-        sitio += '/ejercicios/mostrarListado'
-    // console.log(sitio);
-    // var sitio = 'http://0.0.0.0:5000/ejercicios/mostrarListado'
-    // var sitio = 'http://127.0.0.1:8000/ejercicios/mostrarListado'
-    // var sitio = 'https://boiling-cove-03768.herokuapp.com/ejercicios/mostrarListado'
-
-
-// * * * * * * * * * * * * * * * * * * * * Funciones para cada método HTML * * * * * * * * * * * * * * * * * * * * 
-
-    // --------------------------------------- En caso de recibir GET ---------------------------------------
-    function getEjers() {
-        document.getElementById("accionHTML").innerHTML = "Datos obtenidos";
-        axios
-            .get(sitio)
-            .then(res => showOutput(res))
-            .catch(err => console.error(err))
-    } // ---- Fin getEjers ----
-
-
-
-    // --------------------------------------- En caso de recibir POST ---------------------------------------
-    function addEjer() {
-        document.getElementById("accionHTML").innerHTML = "Ingrese nuevo ejercicio";
-        // Referencia a la sección de acciones en el HTML:
-        var resp = document.getElementById('respuesta');
-
-        // Limpiar espacio de acciones
-        resp.innerHTML="";
-
-        // Creación y envío del formulario con el método elegido.
-        crearFormulario("POST");
-    }// ---- Fin addEjer ----
-
-
-    // --------------------------------------- En caso de recibir PUT ---------------------------------------
-    function updateEjer() {
-        // Referencia a la sección de acciones en el HTML:
-        var resp = document.getElementById('respuesta');
-
-        // Limpiar espacio de acciones
-        resp.innerHTML="";
-        
-        document.getElementById("accionHTML").innerHTML = "Modificar ejercicio";
-        
-        crearFormulario("PUT");
-    }// ---- Fin updateEjer ----
-
-    // --------------------------------------- En caso de recibir DELETE ---------------------------------------
-    function removeEjer() {
-        // Referencia a la sección de acciones en el HTML:
-        var resp = document.getElementById('respuesta');
-
-        // Limpiar espacio de acciones
-        resp.innerHTML="";
-
-        document.getElementById("accionHTML").innerHTML = "¿Qué número de ejercicio desea borrar?";
-
-        // Creación de <input type="text" id="input_Borrar">
-        var input_Borrar = document.createElement('input');
-            input_Borrar.setAttribute('type','text');
-            input_Borrar.setAttribute('id','input_Borrar');
-
-        // Creación de <input type="submit" id="btn-enviar">
-        var input_Enviar = document.createElement('input');
-            input_Enviar.setAttribute('type','submit');
-            input_Enviar.setAttribute('value','Enviar');
-            input_Enviar.setAttribute('id','btn-enviar');
-
-        // Ensamblado de los elementos HTML
-        resp.appendChild(input_Borrar)
-        resp.appendChild(input_Enviar)
-
-        document.getElementById('btn-enviar').addEventListener('click', function(){
-        var aBorrar = document.getElementById("input_Borrar").value;
-        aBorrar = parseInt(aBorrar);
-
-        
-        let dire = sitio+'/'+aBorrar;
-
-        axios
-            .delete(dire,{headers: {"X-CSRFToken": '{{csrf_token}}'},})
-            .then(res => showOutput(res))
-            .catch(error => {console.error(error.response.data)});
-        
-        }) 
-
-    }// ---- Fin removeEjer ----
-
-    // * * * * * * * * * * * * * * * * * * * * Funciones generales * * * * * * * * * * * * * * * * * * * * 
-    function crearFormulario(metodo){
-        var br = document.createElement('br');  // Crea un elemento de salto de línea
-
-        // ----------- Creación del elemento formulario -----------
-        // <form id="myForm">  ... </form>
-        var formulario = document.createElement('form');     
-            formulario.setAttribute('id','myForm');
-
-        // ----------- Creación de un nuevo input -----------------
-        // <input type="text" name="idExistente" placeholder="ID de un ejercicio existente">
-        var inputID = document.createElement('input');
-            inputID.setAttribute('type','text');
-            inputID.setAttribute('id','idExistente');
-            inputID.setAttribute('placeholder','ID de un ejercicio existente');
-
-        // ----------- Creación de un nuevo input -----------------
-        // <input type="text" name="nuevoTitulo" placeholder="Título">
-        var inputTitulo = document.createElement('input');
-            inputTitulo.setAttribute('type','text');
-            inputTitulo.setAttribute('id','nuevoTitulo');
-            inputTitulo.setAttribute('placeholder','Título');
-
-        // ----------- Creación de un nuevo input -----------------
-        // <input type="text" name="nuevoTema" placeholder="Tema">
-        var inputTema = document.createElement('input');
-            inputTema.setAttribute('type','text');
-            inputTema.setAttribute('id','nuevoTema');
-            inputTema.setAttribute('placeholder','Tema');
-
-        // ----------- Creación de textarea -----------------
-        // <textarea placeholder="Enunciado" rows="20" cols="50"></textarea>
-        var inputEnunc = document.createElement('textarea');
-            inputEnunc.setAttribute('rows','10');
-            inputEnunc.setAttribute('cols','50');
-            inputEnunc.setAttribute('id','nuevoEnunc');
-            inputEnunc.setAttribute('placeholder','Enunciado');
-
-        // ----------- Creación de otro textarea -----------------
-        // <textarea placeholder="Algoritmo" rows="20" cols="50"></textarea>
-        var inputAlg = document.createElement('textarea');
-            inputAlg.setAttribute('rows','10');
-            inputAlg.setAttribute('cols','50');
-            inputAlg.setAttribute('id','nuevoAlg');
-            inputAlg.setAttribute('placeholder','Algoritmo');
-
-        // ----------- Creación de enviar -----------------
-        // <input type="submit" id="enviar" value="Enviar">
-        var inputEnviar = document.createElement('input');
-            inputEnviar.setAttribute('type','submit');
-            inputEnviar.setAttribute('id','btn-enviar');
-            inputEnviar.setAttribute('value','Enviar');
-
-        if (metodo === "POST"){
-
-            // Ensamblado del formulario
-            formulario.appendChild(inputTitulo)
-            formulario.appendChild(br.cloneNode())
-            formulario.appendChild(inputTema)
-            formulario.appendChild(br.cloneNode())
-            formulario.appendChild(inputEnunc)
-            formulario.appendChild(br.cloneNode())
-            formulario.appendChild(inputAlg)
-            formulario.appendChild(br.cloneNode())
-            formulario.appendChild(inputEnviar)
-            document.getElementById('respuesta').appendChild(formulario);
-            
-            // Al hacer click en "enviar", generar formulario interno, y enviar
-            document.getElementById('btn-enviar').addEventListener('click', function(){
-                let data = new FormData();    // Para que lo envíe correctamente AXIOS               
-                data.append("titulo", document.getElementById('nuevoTitulo').value)  
-                data.append("tema", document.getElementById('nuevoTema').value)
-                data.append("enunciado", document.getElementById('nuevoEnunc').value)
-                data.append("algoritmo", document.getElementById('nuevoAlg').value)
-                data.append("csrfmiddlewaretoken", '{{csrf_token}}')
-                enviar(data)
-            })
-
-        } else if (metodo === "PUT") {
-
-            // Ensamblado del formulario
-            formulario.appendChild(inputID)
-            formulario.appendChild(br.cloneNode())
-            formulario.appendChild(inputTitulo)
-            formulario.appendChild(br.cloneNode())
-            formulario.appendChild(inputTema)
-            formulario.appendChild(br.cloneNode())
-            formulario.appendChild(inputEnunc)
-            formulario.appendChild(br.cloneNode())
-            formulario.appendChild(inputAlg)
-            formulario.appendChild(br.cloneNode())
-            formulario.appendChild(inputEnviar)
-            document.getElementById('respuesta').appendChild(formulario);
-
-            // Al hacer click en "enviar", generar formulario interno, asociado a cierto ID, y enviar modificaciones
-            document.getElementById('btn-enviar').addEventListener('click', function(){
-                let ID = document.getElementById("idExistente").value;
-                let data = new FormData();
-                data.append(   "titulo"  , document.getElementById( 'nuevoTitulo').value)  
-                data.append(   "tema"    , document.getElementById(  'nuevoTema' ).value)
-                data.append( "enunciado" , document.getElementById( 'nuevoEnunc' ).value)
-                data.append( "algoritmo" , document.getElementById(  'nuevoAlg'  ).value)
-                data.append("X-CSRFToken", '{{csrf_token}}')
-                modificar(ID,data)
-            })
-        }
-    }// ---- Fin crearFormulario ----
-
-    function enviar(datos){
-        axios
-            .post(sitio,datos)
-            .then(res => showOutput(res))
-            .catch(err => console.error(err))
-    }// ---- Fin enviar ----
-
-    function modificar(ID,modifEjercicio){
-        axios
-            .put(sitio+'/'+ID,modifEjercicio,{headers: {"X-CSRFToken": '{{csrf_token}}'},})
-            .then(res => showOutput(res))
-            .catch(err => console.error(err))
-    }// ---- Fin modificar ----
-
-    function showOutput(res) {
-        document.getElementById('respuesta').innerHTML = `
-        <pre>${JSON.stringify(res.data, null, 2)}</pre>
-        `;
-
-    }// ---- Fin showOutput ----
-
-
-    //   function esperar(milliseconds){
-    //         var start = new Date().getTime();
-    //         var end=0;
-    //         while( (end-start) < milliseconds){
-    //             end = new Date().getTime();
-    //         }
-    //     }
-
-
-    // * * * * * * * * * * * * * * * * * * * * Cuerpo principal * * * * * * * * * * * * * * * * * * * * 
-    // Event listeners
-    document.getElementById('get').addEventListener('click', getEjers);
-    document.getElementById('post').addEventListener('click', addEjer);
-    document.getElementById('update').addEventListener('click', updateEjer);
-    document.getElementById('delete').addEventListener('click', removeEjer);
-
-</script>
+    
+    
+    
+    <!-- ------------------------------ JavaScript ----------------------------- -->
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+    <script src="{% static 'js/crud_script.js' %}"></script>
+    <script language="JavaScript">  var csrfToken = "{{ csrf_token }}";</script>
+    
 
     <!-- ---------------------------- Fin JavaScript ---------------------------- -->
 
