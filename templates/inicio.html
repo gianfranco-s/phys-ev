@@ -2,34 +2,67 @@
 
 
 {% block contenido %}
-    <div class="text-center">
-        <h1 class="display-4 text-center mb-3">Autoevaluaciones de Física</h1>
-        <h4>Aquí podrás resolver numéricamente ejercicios de mecánica, electricidad y magnetismo.</h4>
+
+    <div class="row " style="padding: 10px 10px;">
+      <div class="col" style="padding: 0px 20px;">
+        <div class="card text-dark bg-light mb-3" >
+            <div class="card-header">Ver un ejercicio aleatorio</div>
+                <div class="card-body">
+                    <h5 class="card-title">Probá con uno</h5>
+                    <p class="card-text">Para empezar a probar lo que sabés en temas aleatorios de Física.</p>
+                    <a href="ejercicios" class="stretched-link"></a>
+                </div>
+        </div>
+      </div>
+      <div class="col" style="padding: 0px 20px;">
+        <div class="card text-dark bg-light mb-3" >
+            <div class="card-header">Habilidades adicionales</div>
+                <div class="card-body">
+                    <h5 class="card-title">¿Cómo hago una gráfica?</h5>
+                    <p class="card-text">Si tenés un conjunto de datos, aquí te enseñamos a graficarlo, para llegar mejor a tu audiencia.</p>
+                    <a href="#" class="stretched-link"></a>
+                </div>
+        </div>
+      </div>
+      <div class="col" style="padding: 0px 20px;">
+        <div class="card text-dark bg-light mb-3" >
+            <div class="card-header">Aprender</div>
+                <div class="card-body">
+                    <h5 class="card-title">En pocas palabras</h5>
+                    <p class="card-text">En poquitas palabras (o dibujos), algunos de los temas fundamentales de Física.</p>
+                    <a href="#" class="stretched-link"></a>
+                </div>
+        </div>
+      </div>
     </div>
-    
-    <!-- <a href="ejercicios/mostrarListado">
-        <button class="btn btn-primary my-3">Ver todos los ejercicios</button>
-    </a> <br> -->
+ 
 
-    <a href="ejercicios">
-        <button class="btn btn-primary my-3">Ver un ejercicio aleatorio</button>
-    </a> <br>
+  <div class="row" style="padding: 10px 10px;">
+    <div class="col text-center" style="padding: 20px 20px;">
+   
+        <div class="card" style="padding: 20px 0px;">
+            <div class="card-body">
+              <h5 class="card-title">Mecánica</h5>
+              <p class="card-text">Involucra a lo que se mueve y a lo que está quieto, en general es el mundo macroscópico.</p>
+              <a href="#" class="btn btn-primary">Evaluar Mecánica</a>
+            </div>
+          </div>
+    </div>
 
-    <!-- <a href="accounts/login">
-        <button class="btn btn-primary my-3">Login</button>
-    </a> <br> -->
+    <div class="col text-center" style="padding: 20px 20px;">
+   
+        <div class="card" style="padding: 20px 0px;">
+            <div class="card-body">
+              <h5 class="card-title">Electricidad y Magnetismo</h5>
+              <p class="card-text">Involucra al mundo subatómico, y a efectos muchas veces invisibles.</p>
+              <a href="#" class="btn btn-primary">Evaluar Electricidad y Magnetismo</a>
+            </div>
+          </div>
+    </div>
 
-    <!-- <a href="accounts/signup">
-        <button class="btn btn-primary my-3">Signup</button>
-    </a> <br> -->
+  </div>
 
-    <a href="ejercicios/ver-listado">
-        <button class="btn btn-primary my-3">Alta, baja y modificación de ejercicios</button>
-    </a> <br>
 
-    <a href="about">
-        <button class="btn btn-primary my-3">Sobre los creadores de la página</button>
-    </a> <br>
 
 
 {% endblock %}

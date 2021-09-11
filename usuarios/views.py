@@ -28,6 +28,7 @@ def signup_view(request):
     }
     return render(request,'usuarios/signup.html',contexto)
 
+
 from django.contrib.auth.forms import UserCreationForm
 def login_view(request):
     if request.method == 'POST':
@@ -38,7 +39,8 @@ def login_view(request):
             login(request,user)
 
             # return redirect('/ejercicios')
-            return redirect('ejercicios:ejerAleat') 
+            # return redirect('ejercicios:ejerAleat') 
+            return redirect('paginaInicio')
 
     else:                                               # Si se trata de un método GET
         form = AuthenticationForm()  
@@ -49,7 +51,7 @@ def login_view(request):
     return render(request,'usuarios/login.html',contexto)
 
 def logout_view(request):
-    if request.method == 'POST':
-        logout(request)
-        # return redirect('ejercicios:ejerAleat')
-        return redirect('paginaInicio')
+    # if request.method == 'POST':
+    logout(request)
+    # return redirect('ejercicios:ejerAleat')
+    return redirect('paginaInicio')
